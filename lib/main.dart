@@ -3,18 +3,174 @@ import 'dart:io' show Platform;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 void main() {
-  runApp(const BluetoothApp());
+  runApp(BluetoothApp());
 }
 
 class BluetoothApp extends StatelessWidget {
-  const BluetoothApp({Key? key}) : super(key: key);
-
+  //const BluetoothApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bluetooth Scanner',
+      title: 'Bluetooth App',
+      //initialRoute: '/',
+      //routes: {
+      //  '/': (context) =>  HomeScreen(),
+      //  '/default': (context) => defaultPage(),
+      //  '/debug': (context) => BluetoothHomePage(),
+      //},
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const BluetoothHomePage(),
+      home: HomeScreen()
+      //home: const BluetoothHomePage(),
+    );
+  }
+}
+
+// class HomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Home Screen'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.pushNamed(context, '/default');
+//               },
+//               child: Text('Go to User UI'),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.pushNamed(context, '/debug');
+//               },
+//               child: Text('Go to Debug UI'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeTab(),
+    DefaultPage(),
+    BluetoothHomePage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bluetooth App'),
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'User UI',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bluetooth),
+            label: 'Debug',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class HomeTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Home Tab Content'),
+    );
+  }
+}
+
+class DefaultPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double progress = 0.9;
+    double countdown = 2.0;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Overview'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: CircularProgressIndicator(
+                    value: progress,
+                    strokeWidth: 10,
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '${(progress * 100).toInt()}%',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Today\'s Progress',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20), // Add some space between the sections
+            Text(
+              'Next reminder in $countdown hours',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
