@@ -31,7 +31,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release --debug
 
       - name: Build appBundle
         run: flutter build appbundle
