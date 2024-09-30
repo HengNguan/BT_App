@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:intl/intl.dart';
 
 void main() {
-  runApp(BluetoothApp());
+  runApp(const BluetoothApp());
 }
 
 class BluetoothApp extends StatelessWidget {
-  //const BluetoothApp({Key? key}) : super(key: key);
+  const BluetoothApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -66,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
     DefaultPage(),
-    BluetoothHomePage(),
+    const BluetoothHomePage(),
+    CalendarTab(),
   ];
 
   void _onItemTapped(int index) {
@@ -79,12 +81,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bluetooth App'),
+        title: const Text('Bluetooth App'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed, // Ensure labels are always shown
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -98,9 +101,14 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.bluetooth),
             label: 'Debug',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendar',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
@@ -110,20 +118,22 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text('Home Tab Content'),
     );
   }
 }
 
 class DefaultPage extends StatelessWidget {
+  const DefaultPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     double progress = 0.9;
     double countdown = 2.0;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Overview'),
+        title: const Text('Overview'),
       ),
       body: Center(
         child: Column(
@@ -170,6 +180,51 @@ class DefaultPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CalendarTab extends StatefulWidget {
+  @override
+ _CalendarTabState createState() => _CalendarTabState();
+  }
+
+class _CalendarTabState extends State<CalendarTab> {
+  DateTime _selectedDate = DateTime.now();
+  String _historyInfo = 'No history available';
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        _historyInfo = 'History for ${DateFormat('yyyy-MM-dd').format(_selectedDate)}';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: () => _selectDate(context),
+            child: Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            _historyInfo,
+            style: const TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ],
       ),
     );
   }
@@ -408,7 +463,7 @@ class DevicePage extends StatefulWidget {
   final BluetoothDevice device;
   final Function(List<int>) onDataPacketReceived;
 
-  const DevicePage({Key? key, required this.device, required this.onDataPacketReceived}) : super(key: key);
+  const DevicePage({super.key, required this.device, required this.onDataPacketReceived});
 
   @override
   _DevicePageState createState() => _DevicePageState();
