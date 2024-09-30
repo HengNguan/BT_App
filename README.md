@@ -1,6 +1,24 @@
-# untitled2
+# SmartBottle
 
-A new Flutter project.
+A Flutter project that use for a smart-bottle 
+
+### Todo
+Design
+- [ ] Temperature
+- [ ] Animation (Good to have)
+
+Function + Design
+- [ ] Calender
+- [ ] History
+- [ ] Database connection - firestore as option for now
+- [ ] Notification reminder  
+
+### In Progress
+- [ ] Clean-up for bar, many comments in main.dart   
+
+### Done ✓
+- [x] Bar setup
+- [x] Circular Progress bar
 
 ## Getting Started
 
