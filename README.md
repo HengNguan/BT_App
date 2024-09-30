@@ -8,13 +8,13 @@ Design
 - [ ] Animation (Good to have)
 
 Function + Design
-- [ ] Calender
 - [ ] History
 - [ ] Database connection - firestore as option for now
 - [ ] Notification reminder  
 
 ### In Progress
 - [ ] Clean-up for bar, many comments in main.dart   
+- [ ] Calender
 
 ### Done ✓
 - [x] Bar setup
