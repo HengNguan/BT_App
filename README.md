@@ -11,6 +11,7 @@ Function + Design
 - [ ] History
 - [ ] Database connection - firestore as option for now
 - [ ] Notification reminder  
+- [ ] iOS version stuff
 
 ### In Progress
 - [ ] Clean-up for bar, many comments in main.dart   
