@@ -20,15 +20,48 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(countdown) => "Next reminder in ${countdown} hours";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "bluetoothIsOff": MessageLookupByLibrary.simpleMessage(
+            "Bluetooth is OFF or unavailable"),
+        "bluetoothIsOn":
+            MessageLookupByLibrary.simpleMessage("Bluetooth is ON"),
+        "bluetoothScanner":
+            MessageLookupByLibrary.simpleMessage("Bluetooth Scanner"),
+        "bluetooth_home_page": MessageLookupByLibrary.simpleMessage(
+            "==================== Bluetooth Home page ==================== "),
+        "calendar_page": MessageLookupByLibrary.simpleMessage(
+            "==================== Calendar page ==================== "),
+        "connecting": MessageLookupByLibrary.simpleMessage("Connecting..."),
+        "dataPacketReceived":
+            MessageLookupByLibrary.simpleMessage("Data Packets Received:"),
+        "default_page": MessageLookupByLibrary.simpleMessage(
+            "==================== Default page ==================== "),
+        "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
         "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
+        "homeTabContent":
+            MessageLookupByLibrary.simpleMessage("Home Tab Content"),
+        "home_page": MessageLookupByLibrary.simpleMessage(
+            "==================== Home page ==================== "),
+        "nextReminder": m0,
         "noDataAvailable":
             MessageLookupByLibrary.simpleMessage("No data available"),
+        "notSupportThisDevice": MessageLookupByLibrary.simpleMessage(
+            "Bluetooth not supported by this device"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
-        "percentGoal": MessageLookupByLibrary.simpleMessage("% OF GOAL"),
-        "progressGoal": MessageLookupByLibrary.simpleMessage("PROGRESS / GOAL"),
+        "parsedData": MessageLookupByLibrary.simpleMessage("Parsed Data"),
+        "percentGoal":
+            MessageLookupByLibrary.simpleMessage("% Of Goal Achieve"),
+        "progressGoal": MessageLookupByLibrary.simpleMessage("Progress / Goal"),
+        "successfulConnect":
+            MessageLookupByLibrary.simpleMessage("Successful Connect"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
+        "todayProgress":
+            MessageLookupByLibrary.simpleMessage("Today\'s Progress"),
+        "turnOnBluetooth":
+            MessageLookupByLibrary.simpleMessage("Please turn on Bluetooth"),
         "viewAll": MessageLookupByLibrary.simpleMessage("View All")
       };
 }

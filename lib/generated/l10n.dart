@@ -50,6 +50,176 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `==================== Home page ==================== `
+  String get home_page {
+    return Intl.message(
+      '==================== Home page ==================== ',
+      name: 'home_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home Tab Content`
+  String get homeTabContent {
+    return Intl.message(
+      'Home Tab Content',
+      name: 'homeTabContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `==================== Default page ==================== `
+  String get default_page {
+    return Intl.message(
+      '==================== Default page ==================== ',
+      name: 'default_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today's Progress`
+  String get todayProgress {
+    return Intl.message(
+      'Today\'s Progress',
+      name: 'todayProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next reminder in {countdown} hours`
+  String nextReminder(double countdown) {
+    return Intl.message(
+      'Next reminder in $countdown hours',
+      name: 'nextReminder',
+      desc: 'The text that shows the next reminder time',
+      args: [countdown],
+    );
+  }
+
+  /// `==================== Bluetooth Home page ==================== `
+  String get bluetooth_home_page {
+    return Intl.message(
+      '==================== Bluetooth Home page ==================== ',
+      name: 'bluetooth_home_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bluetooth not supported by this device`
+  String get notSupportThisDevice {
+    return Intl.message(
+      'Bluetooth not supported by this device',
+      name: 'notSupportThisDevice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bluetooth is ON`
+  String get bluetoothIsOn {
+    return Intl.message(
+      'Bluetooth is ON',
+      name: 'bluetoothIsOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bluetooth is OFF or unavailable`
+  String get bluetoothIsOff {
+    return Intl.message(
+      'Bluetooth is OFF or unavailable',
+      name: 'bluetoothIsOff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please turn on Bluetooth`
+  String get turnOnBluetooth {
+    return Intl.message(
+      'Please turn on Bluetooth',
+      name: 'turnOnBluetooth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connecting...`
+  String get connecting {
+    return Intl.message(
+      'Connecting...',
+      name: 'connecting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successful Connect`
+  String get successfulConnect {
+    return Intl.message(
+      'Successful Connect',
+      name: 'successfulConnect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disconnected`
+  String get disconnected {
+    return Intl.message(
+      'Disconnected',
+      name: 'disconnected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bluetooth Scanner`
+  String get bluetoothScanner {
+    return Intl.message(
+      'Bluetooth Scanner',
+      name: 'bluetoothScanner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Packets Received:`
+  String get dataPacketReceived {
+    return Intl.message(
+      'Data Packets Received:',
+      name: 'dataPacketReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parsed Data`
+  String get parsedData {
+    return Intl.message(
+      'Parsed Data',
+      name: 'parsedData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `==================== Calendar page ==================== `
+  String get calendar_page {
+    return Intl.message(
+      '==================== Calendar page ==================== ',
+      name: 'calendar_page',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Overview`
   String get overview {
     return Intl.message(
@@ -60,20 +230,20 @@ class S {
     );
   }
 
-  /// `PROGRESS / GOAL`
+  /// `Progress / Goal`
   String get progressGoal {
     return Intl.message(
-      'PROGRESS / GOAL',
+      'Progress / Goal',
       name: 'progressGoal',
       desc: '',
       args: [],
     );
   }
 
-  /// `% OF GOAL`
+  /// `% Of Goal Achieve`
   String get percentGoal {
     return Intl.message(
-      '% OF GOAL',
+      '% Of Goal Achieve',
       name: 'percentGoal',
       desc: '',
       args: [],

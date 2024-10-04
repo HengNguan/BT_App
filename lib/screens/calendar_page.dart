@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../Constant/ConstantString.dart';
+import '../Constant/ConstantStyling.dart';
 import '../generated/l10n.dart';
 
 class CalendarTab extends StatefulWidget {
@@ -11,15 +13,16 @@ class _CalendarTabState extends State<CalendarTab> {
   DateTime _selectedDate = DateTime.now(); // Default date is today
   List<Map<String, String>>? _currentDrinkLogs; // Drink log for selected date
   bool _hasData = true; // To determine if there's data for the selected date
+  int _totalVolume = 0; // To keep track of total volume consumed for the day
 
   // Example data
   Map<String, List<Map<String, String>>> drinkData = {
     '2024-10-01': [
       {'time': '8:00 AM', 'volume': '200 ML'},
       {'time': '12:00 PM', 'volume': '300 ML'},
+      {'time': '9:00 PM', 'volume': '300 ML'},
+      {'time': '11:00 PM', 'volume': '100 ML'},
       {'time': '6:00 PM', 'volume': '100 ML'},
-      {'time': '8:00 AM', 'volume': '200 ML'},
-      {'time': '12:00 PM', 'volume': '300 ML'},
       {'time': '6:00 PM', 'volume': '100 ML'},
     ],
     '2024-09-30': [
@@ -42,9 +45,11 @@ class _CalendarTabState extends State<CalendarTab> {
     });
   }
 
-  // Increase the selected date by one day
+  // Increase the selected date by one day, but not beyond today
   void _increaseDate() {
-    if (_selectedDate.isBefore(DateTime.now())) {
+    // Compare only the date part (year, month, day)
+    if (DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
+        .isBefore(DateTime.now())) {
       setState(() {
         _selectedDate = _selectedDate.add(Duration(days: 1));
         _updateDrinkLogs(); // Update the drink log for the selected date
@@ -72,11 +77,36 @@ class _CalendarTabState extends State<CalendarTab> {
   void _updateDrinkLogs() {
     String formattedDate = DateFormat('yyyy-MM-dd').format(_selectedDate);
     if (drinkData.containsKey(formattedDate)) {
-      _currentDrinkLogs = drinkData[formattedDate];
+      _currentDrinkLogs = List.from(drinkData[formattedDate]!); // Copy the data
       _hasData = true;
+      _sortDrinkLogsByTime(); // Sort drink logs by time
+      _calculateTotalVolume(); // Calculate total volume for the day
     } else {
       _currentDrinkLogs = [];
       _hasData = false;
+      _totalVolume = 0; // Reset total volume if no data
+    }
+  }
+
+  // Sort the drink logs by time
+  void _sortDrinkLogsByTime() {
+    DateFormat timeFormat =
+        DateFormat('h:mm a'); // Parse time in "8:00 AM" format
+    _currentDrinkLogs!.sort((a, b) {
+      DateTime timeA = timeFormat.parse(a['time']!);
+      DateTime timeB = timeFormat.parse(b['time']!);
+      return timeA.compareTo(timeB); // Compare two DateTime objects
+    });
+  }
+
+  // Calculate the total volume from the drink log
+  void _calculateTotalVolume() {
+    _totalVolume = 0; // Reset total volume
+    for (var log in _currentDrinkLogs!) {
+      String volumeString = log['volume']!;
+      int volume =
+          int.parse(volumeString.split(' ')[0]); // Extract number from "200 ML"
+      _totalVolume += volume;
     }
   }
 
@@ -124,34 +154,42 @@ class _CalendarTabState extends State<CalendarTab> {
   // Build the header with the current date and navigation arrows
   Widget _buildDateHeader() {
     String formattedDate = DateFormat('EEEE, MMMM d')
-        .format(_selectedDate); // Format date as "Monday, October 1"
-    bool isToday = DateFormat('yyyy-MM-dd').format(_selectedDate) ==
-        DateFormat('yyyy-MM-dd').format(DateTime.now());
+        .format(_selectedDate); // "Monday, October 1"
+
+    // Compare only the date part (year, month, day) to check if it's today
+    bool isToday =
+        DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
+            .isAtSameMomentAs(DateTime(
+                DateTime.now().year, DateTime.now().month, DateTime.now().day));
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center, // Center the date
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.arrow_left),
-          onPressed: _decreaseDate, // Decrease the date
+          onPressed: _decreaseDate,
         ),
         GestureDetector(
-          onTap: () => _selectDate(context), // Show date picker
+          onTap: () => _selectDate(context),
           child: Row(
             children: [
               Text(
                 isToday
                     ? '${S.of(context).today} (${DateFormat('yyyy-MM-dd').format(_selectedDate)})'
-                    : formattedDate, // Show "Today" or the formatted date
+                    : formattedDate,
+                style: AppTextStyles.bold12,
               ),
             ],
           ),
         ),
         IconButton(
           icon: Icon(Icons.arrow_right),
-          onPressed: _selectedDate.isBefore(DateTime.now())
+          onPressed: DateTime(_selectedDate.year, _selectedDate.month,
+                      _selectedDate.day)
+                  .isBefore(DateTime(DateTime.now().year, DateTime.now().month,
+                      DateTime.now().day))
               ? _increaseDate
-              : null, // Increase the date if not today
+              : null,
         ),
       ],
     );
@@ -162,17 +200,20 @@ class _CalendarTabState extends State<CalendarTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          S.of(context).overview,
-        ),
+        Text(S.of(context).overview, style: AppTextStyles.title18Bold),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            _buildOverviewCard(S.of(context).progressGoal,
+                _hasData ? '$_totalVolume / 3000 ML' : 'NIL'),
+            // Display total volume dynamically
             _buildOverviewCard(
-                S.of(context).progressGoal, _hasData ? '600 / 3000 ML' : 'NIL'),
-            _buildOverviewCard(
-                S.of(context).percentGoal, _hasData ? '20%' : 'NIL'),
+                S.of(context).percentGoal,
+                _hasData
+                    ? '${(_totalVolume / 3000 * 100).toStringAsFixed(1)}%'
+                    : 'NIL'),
+            // Calculate percentage based on total volume
           ],
         ),
       ],
@@ -187,9 +228,9 @@ class _CalendarTabState extends State<CalendarTab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(color: Colors.grey, fontSize: 12)),
+            Text(title, style: AppTextStyles.grey12Regular),
             const SizedBox(height: 10),
-            Text(value),
+            Text(value, style: AppTextStyles.regular12),
           ],
         ),
       ),
@@ -208,9 +249,7 @@ class _CalendarTabState extends State<CalendarTab> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // Drink Log title and View All button
           children: [
-            Text(
-              S.of(context).drinkLog,
-            ),
+            Text(S.of(context).drinkLog, style: AppTextStyles.title18Bold),
             // Only show View All if there are more than 5 logs
             _hasData && _currentDrinkLogs!.length > 5
                 ? TextButton(
@@ -222,10 +261,10 @@ class _CalendarTabState extends State<CalendarTab> {
                                 DrinkLogPage(drinkLogs: _currentDrinkLogs!)),
                       );
                     },
-                    child: Text(S.of(context).viewAll),
+                    child: Text(S.of(context).viewAll,
+                        style: AppTextStyles.regular12),
                   )
                 : Container(),
-            // Do not show View All if there are fewer than 5 logs
           ],
         ),
         const SizedBox(height: 10),
@@ -238,9 +277,8 @@ class _CalendarTabState extends State<CalendarTab> {
                     .toList(),
               )
             : Center(
-                child: Text(
-                  S.of(context).noDataAvailable,
-                ),
+                child: Text(S.of(context).noDataAvailable,
+                    style: AppTextStyles.regular12),
               ),
       ],
     );
