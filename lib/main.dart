@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
+import 'generated/l10n.dart';
+import 'package:untitled2/screens/calendar_page.dart';
 
 void main() {
   runApp(const BluetoothApp());
@@ -20,7 +23,15 @@ class BluetoothApp extends StatelessWidget {
       //  '/debug': (context) => BluetoothHomePage(),
       //},
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomeScreen()
+      home: HomeScreen(),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      locale: const Locale('en'),
       //home: const BluetoothHomePage(),
     );
   }
@@ -80,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bluetooth App'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Bluetooth App'),
+      // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -180,51 +191,6 @@ class DefaultPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CalendarTab extends StatefulWidget {
-  @override
- _CalendarTabState createState() => _CalendarTabState();
-  }
-
-class _CalendarTabState extends State<CalendarTab> {
-  DateTime _selectedDate = DateTime.now();
-  String _historyInfo = 'No history available';
-
-  void _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-        _historyInfo = 'History for ${DateFormat('yyyy-MM-dd').format(_selectedDate)}';
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: () => _selectDate(context),
-            child: Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            _historyInfo,
-            style: const TextStyle(fontSize: 16, color: Colors.grey),
-          ),
-        ],
       ),
     );
   }

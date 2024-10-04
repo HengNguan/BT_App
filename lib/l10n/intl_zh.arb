@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh",
+  "overview": "概览",
+  "progressGoal": "进度 / 目标",
+  "percentGoal": "目标百分比",
+  "drinkLog": "饮水日志",
+  "viewAll": "查看全部",
+  "today": "今天",
+  "noDataAvailable": "没有更多的数据"
+}

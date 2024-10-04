@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "overview": "Overview",
+  "progressGoal": "Progress / Goal",
+  "percentGoal": "% Of Goal Achieve",
+  "drinkLog": "Drink Log",
+  "viewAll": "View All",
+  "today": "Today",
+  "noDataAvailable": "No data available"
+}
