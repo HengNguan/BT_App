@@ -1,9 +1,39 @@
 {
   "@@locale": "zh",
+
+  "home_page": "==================== 首页 ==================== ",
+  "homeTabContent" : "首页内容",
+
+  "default_page": "==================== 默认页面 ==================== ",
+  "todayProgress": "今日进度",
+  "nextReminder": "下一个提醒在 {countdown} 小时后",
+  "@nextReminder": {
+    "description": "显示下一个提醒时间的文本",
+    "placeholders": {
+      "countdown": {
+        "type": "double",
+        "example": "1.0"
+      }
+    }
+  },
+
+  "bluetooth_home_page": "==================== 蓝牙首页 ==================== ",
+  "notSupportThisDevice": "此设备不支持蓝牙",
+  "bluetoothIsOn": "蓝牙已开启",
+  "bluetoothIsOff": "蓝牙已关闭或不可用",
+  "turnOnBluetooth": "请开启蓝牙",
+  "connecting": "正在连接...",
+  "successfulConnect": "连接成功",
+  "disconnected": "已断开连接",
+  "bluetoothScanner": "蓝牙扫描器",
+  "dataPacketReceived": "已接收到数据包：",
+  "parsedData": "解析数据",
+
+  "calendar_page": "==================== 日历页面 ==================== ",
   "overview": "概览",
   "progressGoal": "进度 / 目标",
-  "percentGoal": "目标百分比",
-  "drinkLog": "饮水日志",
+  "percentGoal": "目标完成百分比",
+  "drinkLog": "饮水记录",
   "viewAll": "查看全部",
   "today": "今天",
   "noDataAvailable": "没有更多的数据"

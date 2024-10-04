@@ -1,5 +1,35 @@
 {
   "@@locale": "en",
+
+  "home_page": "==================== Home page ==================== ",
+  "homeTabContent" : "Home Tab Content",
+
+  "default_page": "==================== Default page ==================== ",
+  "todayProgress": "Today's Progress",
+  "nextReminder": "Next reminder in {countdown} hours",
+  "@nextReminder": {
+    "description": "The text that shows the next reminder time",
+    "placeholders": {
+      "countdown": {
+        "type": "double",
+        "example": "1.0"
+      }
+    }
+  },
+
+  "bluetooth_home_page": "==================== Bluetooth Home page ==================== ",
+  "notSupportThisDevice": "Bluetooth not supported by this device",
+  "bluetoothIsOn": "Bluetooth is ON",
+  "bluetoothIsOff": "Bluetooth is OFF or unavailable",
+  "turnOnBluetooth": "Please turn on Bluetooth",
+  "connecting": "Connecting...",
+  "successfulConnect": "Successful Connect",
+  "disconnected": "Disconnected",
+  "bluetoothScanner": "Bluetooth Scanner",
+  "dataPacketReceived": "Data Packets Received:",
+  "parsedData": "Parsed Data",
+
+  "calendar_page": "==================== Calendar page ==================== ",
   "overview": "Overview",
   "progressGoal": "Progress / Goal",
   "percentGoal": "% Of Goal Achieve",
