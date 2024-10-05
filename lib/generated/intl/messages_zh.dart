@@ -47,7 +47,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
         "parsedData": MessageLookupByLibrary.simpleMessage("解析数据"),
         "percentGoal": MessageLookupByLibrary.simpleMessage("目标完成百分比"),
+        "permissionDenied": MessageLookupByLibrary.simpleMessage(
+            "哎呀！似乎缺少一些必要的权限。请在设置中启用它们以继续使用该应用。"),
+        "permissionNeeded": MessageLookupByLibrary.simpleMessage("所需权限"),
+        "permission_denied_page": MessageLookupByLibrary.simpleMessage(
+            "==================== 权限被拒页面 ==================== "),
         "progressGoal": MessageLookupByLibrary.simpleMessage("进度 / 目标"),
+        "reminder_content": MessageLookupByLibrary.simpleMessage("保持充足的水分！"),
+        "reminder_service": MessageLookupByLibrary.simpleMessage(
+            "==================== 提醒服务 ==================== "),
+        "reminder_title": MessageLookupByLibrary.simpleMessage("是时候喝水了"),
         "successfulConnect": MessageLookupByLibrary.simpleMessage("连接成功"),
         "today": MessageLookupByLibrary.simpleMessage("今天"),
         "todayProgress": MessageLookupByLibrary.simpleMessage("今日进度"),

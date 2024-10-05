@@ -1,6 +1,10 @@
 {
   "@@locale": "zh",
 
+  "permission_denied_page": "==================== 权限被拒页面 ==================== ",
+  "permissionNeeded": "所需权限",
+  "permissionDenied": "哎呀！似乎缺少一些必要的权限。请在设置中启用它们以继续使用该应用。",
+
   "home_page": "==================== 首页 ==================== ",
   "homeTabContent" : "首页内容",
 

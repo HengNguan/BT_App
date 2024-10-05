@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Constant/ConstantString.dart';
 import '../Constant/ConstantStyling.dart';
 import '../generated/l10n.dart';
+import '../services/reminder_service.dart';
 import 'bluetooth_home_page.dart';
 import 'calendar_page.dart';
 import 'default_page.dart';
@@ -15,13 +16,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  late final ReminderService _reminderService;
 
   static final List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
-    DefaultPage(),
+    const DefaultPage(),
     const BluetoothHomePage(),
     CalendarTab(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _reminderService = ReminderService();
+    _reminderService.startReminder();
+  }
 
   void _onItemTapped(int index) {
     setState(() {

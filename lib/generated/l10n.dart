@@ -50,6 +50,36 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `==================== Permission Denied page ==================== `
+  String get permission_denied_page {
+    return Intl.message(
+      '==================== Permission Denied page ==================== ',
+      name: 'permission_denied_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Permissions Needed`
+  String get permissionNeeded {
+    return Intl.message(
+      'Permissions Needed',
+      name: 'permissionNeeded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.`
+  String get permissionDenied {
+    return Intl.message(
+      'Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.',
+      name: 'permissionDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `==================== Home page ==================== `
   String get home_page {
     return Intl.message(
@@ -285,6 +315,36 @@ class S {
     return Intl.message(
       'No data available',
       name: 'noDataAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `==================== Reminder Service ==================== `
+  String get reminder_service {
+    return Intl.message(
+      '==================== Reminder Service ==================== ',
+      name: 'reminder_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time to drink water`
+  String get reminder_title {
+    return Intl.message(
+      'Time to drink water',
+      name: 'reminder_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay hydrated by drinking water!`
+  String get reminder_content {
+    return Intl.message(
+      'Stay hydrated by drinking water!',
+      name: 'reminder_content',
       desc: '',
       args: [],
     );

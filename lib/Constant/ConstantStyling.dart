@@ -12,6 +12,11 @@ class AppTextStyles {
       fontWeight: ConstantString.FONT_WEIGHT_REGULAR,
       fontSize: 12);
 
+  static const TextStyle regular16 = TextStyle(
+      fontFamily: ConstantString.FONT_ADDRESS_SANS_PRO,
+      fontWeight: ConstantString.FONT_WEIGHT_REGULAR,
+      fontSize: 16);
+
   static const TextStyle bold12 = TextStyle(
       fontFamily: ConstantString.FONT_ADDRESS_SANS_PRO,
       fontWeight: ConstantString.FONT_WEIGHT_BOLD,

@@ -40,6 +40,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_reactive_ble: ^5.3.1
   flutter_blue_plus: ^1.32.12
+  flutter_local_notifications: ^17.2.3
+  android_alarm_manager_plus: ^4.0.4
+  permission_handler: ^11.3.1
+  device_info_plus: ^10.1.2
 
 
 dev_dependencies:

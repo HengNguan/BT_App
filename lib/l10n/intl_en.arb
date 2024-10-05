@@ -1,6 +1,10 @@
 {
   "@@locale": "en",
 
+  "permission_denied_page": "==================== Permission Denied page ==================== ",
+  "permissionNeeded": "Permissions Needed",
+  "permissionDenied": "Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.",
+
   "home_page": "==================== Home page ==================== ",
   "homeTabContent" : "Home Tab Content",
 
@@ -36,5 +40,5 @@
   "drinkLog": "Drink Log",
   "viewAll": "View All",
   "today": "Today",
-  "noDataAvailable": "No data available"
+  "noDataAvailable": "No data available",
 }
