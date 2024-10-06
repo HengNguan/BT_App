@@ -10,9 +10,9 @@ class NotificationHelper {
 
     // iOS initialization settings
     const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(
-      requestAlertPermission: false,
-      requestBadgePermission: false,
-      requestSoundPermission: false,
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
