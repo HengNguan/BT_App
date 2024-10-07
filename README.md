@@ -6,6 +6,9 @@ A Flutter project that use for a smart-bottle
 Design
 - [ ] Temperature
 - [ ] Animation (Good to have)
+- [ ] Reset the UI after disconnected
+- [ ] First install - bluetooth permission
+- [ ] Foreground service 
 
 Function + Design
 - [ ] History
