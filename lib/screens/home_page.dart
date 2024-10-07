@@ -19,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   late final ReminderService _reminderService;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeTab(),
-    const DefaultPage(),
+    //HomeTab(),
+    //const DefaultPage(),
     BluetoothHomePage(),
     CalendarTab(),
   ];
@@ -52,17 +52,17 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         // Ensure labels are always shown
         items: const <BottomNavigationBarItem>[
+         // BottomNavigationBarItem(
+         //   icon: Icon(Icons.error_outline),
+         //   label: 'Placeholder',
+         // ),
+         // BottomNavigationBarItem(
+         //   icon: Icon(Icons.person),
+         //   label: 'User UI',
+         // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'User UI',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bluetooth),
-            label: 'Debug',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
