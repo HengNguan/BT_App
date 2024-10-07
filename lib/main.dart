@@ -28,7 +28,13 @@ void main() async {
     await AndroidAlarmManager.initialize();
 
     // Run the main app
-    runApp(const BluetoothApp());
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => BluetoothProvider(),
+        child: const BluetoothApp(),
+      ),
+    );
+
   }
 }
 
@@ -50,6 +56,7 @@ class BluetoothApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      locale: const Locale('en'),
       home: HomeScreen(),
     );
   }
