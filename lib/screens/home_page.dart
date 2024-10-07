@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
     const DefaultPage(),
-    const BluetoothHomePage(),
+    BluetoothHomePage(),
     CalendarTab(),
   ];
 
