@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../services/reminder_service.dart';
+
 class BluetoothProvider extends ChangeNotifier {
   List<ScanResult> _scanResults = [];
   bool _isScanning = false;
@@ -17,7 +19,11 @@ class BluetoothProvider extends ChangeNotifier {
   List<Map<String, dynamic>> get parsedDataPackets => _parsedDataPackets;
   BluetoothDevice? get connectedDevice => _connectedDevice;
 
+  late final ReminderService _reminderService;
+
   BluetoothProvider() {
+    _reminderService = ReminderService();
+
     _checkBluetoothState();
   }
 
@@ -41,7 +47,8 @@ class BluetoothProvider extends ChangeNotifier {
     try {
       await FlutterBluePlus.startScan(timeout: Duration(seconds: 4));
       FlutterBluePlus.scanResults.listen((results) {
-        _scanResults = results;
+        // Filter out devices with no name or "Unknown Device"
+        _scanResults = results.where((result) => result.device.name != null && result.device.name.isNotEmpty).toList();
         notifyListeners();
       });
     } catch (e) {
@@ -74,6 +81,7 @@ class BluetoothProvider extends ChangeNotifier {
 
   void _listenForDataPackets(BluetoothDevice device) async {
     List<BluetoothService> services = await device.discoverServices();
+
     for (BluetoothService service in services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
         if (characteristic.properties.notify) {
@@ -107,6 +115,9 @@ class BluetoothProvider extends ChangeNotifier {
       };
 
       _parsedDataPackets.add(parsedData);
+
+      _reminderService.startReminder();
+
       notifyListeners(); // Notify listeners about the new parsed data
     }
   }

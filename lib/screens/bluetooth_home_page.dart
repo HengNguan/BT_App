@@ -12,9 +12,6 @@ class BluetoothHomePage extends StatelessWidget {
     return Consumer<BluetoothProvider>(
       builder: (context, bluetoothProvider, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(S.of(context).bluetoothScanner),
-          ),
           body: Stack(
             children: [
               Container(

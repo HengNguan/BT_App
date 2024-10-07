@@ -16,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  late final ReminderService _reminderService;
 
   static final List<Widget> _widgetOptions = <Widget>[
     //HomeTab(),
@@ -28,9 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
-    _reminderService = ReminderService();
-    _reminderService.startReminder();
   }
 
   void _onItemTapped(int index) {
