@@ -112,7 +112,6 @@ class _CalendarTabState extends State<CalendarTab> {
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Ensure that super.build is called
     return Scaffold(
       resizeToAvoidBottomInset: true,
       // Avoid content overflow when keyboard is displayed
