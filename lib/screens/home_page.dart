@@ -16,21 +16,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  late final ReminderService _reminderService;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeTab(),
-    const DefaultPage(),
-    const BluetoothHomePage(),
+    //HomeTab(),
+    //const DefaultPage(),
+    BluetoothHomePage(),
     CalendarTab(),
   ];
 
   @override
   void initState() {
     super.initState();
-
-    _reminderService = ReminderService();
-    _reminderService.startReminder();
   }
 
   void _onItemTapped(int index) {
@@ -52,17 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         // Ensure labels are always shown
         items: const <BottomNavigationBarItem>[
+         // BottomNavigationBarItem(
+         //   icon: Icon(Icons.error_outline),
+         //   label: 'Placeholder',
+         // ),
+         // BottomNavigationBarItem(
+         //   icon: Icon(Icons.person),
+         //   label: 'User UI',
+         // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'User UI',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bluetooth),
-            label: 'Debug',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),

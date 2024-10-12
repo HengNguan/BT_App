@@ -1,9 +1,12 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:untitled2/screens/home_page.dart';
 import 'package:untitled2/utils/permission_utility.dart';
+import 'Base/bluetooth_provider.dart';
 import 'Constant/ConstantStyling.dart';
+import 'screens/bluetooth_home_page.dart';
 import 'generated/l10n.dart';
 import 'helpers/notification_helper.dart';
 
@@ -25,7 +28,13 @@ void main() async {
     await AndroidAlarmManager.initialize();
 
     // Run the main app
-    runApp(const BluetoothApp());
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => BluetoothProvider(),
+        child: const BluetoothApp(),
+      ),
+    );
+
   }
 }
 
@@ -35,15 +44,11 @@ class BluetoothApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bluetooth App',
-      //initialRoute: '/',
-      //routes: {
-      //  '/': (context) =>  HomeScreen(),
-      //  '/default': (context) => defaultPage(),
-      //  '/debug': (context) => BluetoothHomePage(),
-      //},
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomeScreen(),
+      title: 'Bluetooth Water Bottle',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -52,7 +57,7 @@ class BluetoothApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('en'),
-      //home: const BluetoothHomePage(),
+      home: HomeScreen(),
     );
   }
 }
