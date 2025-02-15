@@ -105,7 +105,7 @@ class BluetoothProvider extends ChangeNotifier {
             .join(),
         'Power Status': dataPacket[6] == 1 ? 'On' : 'Off',
         'Temperature': ((dataPacket[7] << 8) | dataPacket[8]) / 10.0,
-        'Weight': ((dataPacket[9] << 8) | dataPacket[10]) / 1.0,
+        'Weight': ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0,
         'Battery': dataPacket[12],
         'Reserved': dataPacket
             .sublist(13, 15)
