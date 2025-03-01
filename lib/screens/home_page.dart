@@ -5,6 +5,7 @@ import '../Constant/ConstantString.dart';
 import '../Constant/ConstantStyling.dart';
 import '../generated/l10n.dart';
 import '../services/reminder_service.dart';
+import '../widgets/language_switch_button.dart';
 import 'bluetooth_home_page.dart';
 import 'calendar_page.dart';
 import 'default_page.dart';
@@ -38,9 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Bluetooth App'),
-      // ),
+      appBar: AppBar(
+        title: Text(S.of(context).bluetoothScanner),
+        actions: [
+          // 添加语言切换按钮
+          const LanguageSwitchButton(),
+        ],
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

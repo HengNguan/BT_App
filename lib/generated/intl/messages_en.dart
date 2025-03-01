@@ -20,60 +20,106 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(countdown) => "Next reminder in ${countdown} hours";
+  static String m0(error) => "Failed to get SharedPreferences: ${error}";
+
+  static String m1(maxRetries) =>
+      "Unable to load language settings after ${maxRetries} attempts, using default language";
+
+  static String m2(attempt, error) =>
+      "Language setting load attempt ${attempt} failed: ${error}";
+
+  static String m3(languageCode) =>
+      "Successfully loaded language setting: ${languageCode}";
+
+  static String m4(countdown) => "Next reminder in ${countdown} hours";
+
+  static String m5(error) => "Failed to save language setting: ${error}";
+
+  static String m6(languageCode) => "Language setting saved: ${languageCode}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "bluetoothIsOff": MessageLookupByLibrary.simpleMessage(
-            "Bluetooth is OFF or unavailable"),
-        "bluetoothIsOn":
-            MessageLookupByLibrary.simpleMessage("Bluetooth is ON"),
-        "bluetoothScanner":
-            MessageLookupByLibrary.simpleMessage("Bluetooth Scanner"),
-        "bluetooth_home_page": MessageLookupByLibrary.simpleMessage(
-            "==================== Bluetooth Home page ==================== "),
-        "calendar_page": MessageLookupByLibrary.simpleMessage(
-            "==================== Calendar page ==================== "),
-        "connecting": MessageLookupByLibrary.simpleMessage("Connecting..."),
-        "dataPacketReceived":
-            MessageLookupByLibrary.simpleMessage("Data Packets Received:"),
-        "default_page": MessageLookupByLibrary.simpleMessage(
-            "==================== Default page ==================== "),
-        "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
-        "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
-        "homeTabContent":
-            MessageLookupByLibrary.simpleMessage("Home Tab Content"),
-        "home_page": MessageLookupByLibrary.simpleMessage(
-            "==================== Home page ==================== "),
-        "nextReminder": m0,
-        "noDataAvailable":
-            MessageLookupByLibrary.simpleMessage("No data available"),
-        "notSupportThisDevice": MessageLookupByLibrary.simpleMessage(
-            "Bluetooth not supported by this device"),
-        "overview": MessageLookupByLibrary.simpleMessage("Overview"),
-        "parsedData": MessageLookupByLibrary.simpleMessage("Parsed Data"),
-        "percentGoal":
-            MessageLookupByLibrary.simpleMessage("% Of Goal Achieve"),
-        "permissionDenied": MessageLookupByLibrary.simpleMessage(
-            "Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app."),
-        "permissionNeeded":
-            MessageLookupByLibrary.simpleMessage("Permissions Needed"),
-        "permission_denied_page": MessageLookupByLibrary.simpleMessage(
-            "==================== Permission Denied page ==================== "),
-        "progressGoal": MessageLookupByLibrary.simpleMessage("Progress / Goal"),
-        "reminder_content": MessageLookupByLibrary.simpleMessage(
-            "Stay hydrated by drinking water!"),
-        "reminder_service": MessageLookupByLibrary.simpleMessage(
-            "==================== Reminder Service ==================== "),
-        "reminder_title":
-            MessageLookupByLibrary.simpleMessage("Time to drink water"),
-        "successfulConnect":
-            MessageLookupByLibrary.simpleMessage("Successful Connect"),
-        "today": MessageLookupByLibrary.simpleMessage("Today"),
-        "todayProgress":
-            MessageLookupByLibrary.simpleMessage("Today\'s Progress"),
-        "turnOnBluetooth":
-            MessageLookupByLibrary.simpleMessage("Please turn on Bluetooth"),
-        "viewAll": MessageLookupByLibrary.simpleMessage("View All")
-      };
+    "battery": MessageLookupByLibrary.simpleMessage("Battery"),
+    "bluetoothIsOff": MessageLookupByLibrary.simpleMessage(
+      "Bluetooth is OFF or unavailable",
+    ),
+    "bluetoothIsOn": MessageLookupByLibrary.simpleMessage("Bluetooth is ON"),
+    "bluetoothScanner": MessageLookupByLibrary.simpleMessage(
+      "Bluetooth Scanner",
+    ),
+    "bluetooth_home_page": MessageLookupByLibrary.simpleMessage(
+      "==================== Bluetooth Home page ==================== ",
+    ),
+    "calendar_page": MessageLookupByLibrary.simpleMessage(
+      "==================== Calendar page ==================== ",
+    ),
+    "connect": MessageLookupByLibrary.simpleMessage("Connect"),
+    "connecting": MessageLookupByLibrary.simpleMessage("Connecting..."),
+    "dataPacketReceived": MessageLookupByLibrary.simpleMessage(
+      "Data Packets Received:",
+    ),
+    "default_page": MessageLookupByLibrary.simpleMessage(
+      "==================== Default page ==================== ",
+    ),
+    "deviceId": MessageLookupByLibrary.simpleMessage("ID"),
+    "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
+    "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
+    "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
+    "getPrefsError": m0,
+    "getPrefsTimeout": MessageLookupByLibrary.simpleMessage(
+      "SharedPreferences initialization timeout",
+    ),
+    "homeTabContent": MessageLookupByLibrary.simpleMessage("Home Tab Content"),
+    "home_page": MessageLookupByLibrary.simpleMessage(
+      "==================== Home page ==================== ",
+    ),
+    "language_provider": MessageLookupByLibrary.simpleMessage(
+      "==================== Language Provider ==================== ",
+    ),
+    "loadLanguageMaxRetries": m1,
+    "loadLanguageRetryFailed": m2,
+    "loadLanguageSuccess": m3,
+    "nextReminder": m4,
+    "noDataAvailable": MessageLookupByLibrary.simpleMessage(
+      "No data available",
+    ),
+    "notSupportThisDevice": MessageLookupByLibrary.simpleMessage(
+      "Bluetooth not supported by this device",
+    ),
+    "on": MessageLookupByLibrary.simpleMessage("On"),
+    "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+    "parsedData": MessageLookupByLibrary.simpleMessage("Parsed Data"),
+    "percentGoal": MessageLookupByLibrary.simpleMessage("% Of Goal Achieve"),
+    "permissionDenied": MessageLookupByLibrary.simpleMessage(
+      "Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.",
+    ),
+    "permissionNeeded": MessageLookupByLibrary.simpleMessage(
+      "Permissions Needed",
+    ),
+    "permission_denied_page": MessageLookupByLibrary.simpleMessage(
+      "==================== Permission Denied page ==================== ",
+    ),
+    "power": MessageLookupByLibrary.simpleMessage("Power"),
+    "progressGoal": MessageLookupByLibrary.simpleMessage("Progress / Goal"),
+    "saveLanguageError": m5,
+    "saveLanguageSuccess": m6,
+    "scanForDevices": MessageLookupByLibrary.simpleMessage("Scan for Devices"),
+    "serial": MessageLookupByLibrary.simpleMessage("Serial"),
+    "stayHydrated": MessageLookupByLibrary.simpleMessage(
+      "Stay hydrated by drinking water!",
+    ),
+    "successfulConnect": MessageLookupByLibrary.simpleMessage(
+      "Successful Connect",
+    ),
+    "timeToDrinkWater": MessageLookupByLibrary.simpleMessage(
+      "Time to drink water • now",
+    ),
+    "today": MessageLookupByLibrary.simpleMessage("Today"),
+    "todayProgress": MessageLookupByLibrary.simpleMessage("Today\'s Progress"),
+    "turnOnBluetooth": MessageLookupByLibrary.simpleMessage(
+      "Please turn on Bluetooth",
+    ),
+    "type": MessageLookupByLibrary.simpleMessage("Type"),
+    "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
+  };
 }

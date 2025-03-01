@@ -44,6 +44,8 @@ dependencies:
   android_alarm_manager_plus: ^4.0.4
   permission_handler: ^11.3.1
   device_info_plus: ^10.1.2
+  shared_preferences: ^2.5.2
+  path_provider: ^2.1.1
 
 
 dev_dependencies:
@@ -67,8 +69,8 @@ flutter_icons:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -79,8 +81,6 @@ flutter:
   assets:
     - lib/l10n/
     - assets/images/
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
 
   fonts:
     - family: SF PRO Display

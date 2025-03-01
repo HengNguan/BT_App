@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../Base/bluetooth_provider.dart';
 import 'dart:math';
 
+import '../generated/l10n.dart';
+
 class BluetoothHomePage extends StatelessWidget {
   const BluetoothHomePage({Key? key}) : super(key: key);
 
@@ -42,7 +44,7 @@ class BluetoothHomePage extends StatelessWidget {
             onPressed: bluetoothProvider.disconnectDevice,
             backgroundColor: Colors.blue,
             child: Icon(Icons.bluetooth_disabled),
-            tooltip: 'Disconnect',
+            tooltip: S.of(context).disconnect,
           )
               : null,
         );
@@ -56,7 +58,7 @@ class BluetoothHomePage extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: provider.isScanning ? null : provider.startScanning,
-          child: Text(provider.isScanning ? 'Scanning...' : 'Scan for Devices'),
+          child: Text(provider.isScanning ? S.of(context).connecting : S.of(context).scanForDevices),
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             textStyle: TextStyle(fontSize: 20),
@@ -79,10 +81,10 @@ class BluetoothHomePage extends StatelessWidget {
 
                 return ListTile(
                   title: Text(deviceName),
-                  subtitle: Text('ID: ${device.remoteId}'),
+                  subtitle: Text('${S.of(context).deviceId}: ${device.remoteId}'),
                   trailing: ElevatedButton(
                     onPressed: () => provider.connectToDevice(device),
-                    child: Text('Connect'),
+                    child: Text(S.of(context).connect),
                   ),
                 );
               },
@@ -92,7 +94,9 @@ class BluetoothHomePage extends StatelessWidget {
       ],
     );
   }
-}class ModernWaveUI extends StatelessWidget {
+}
+
+class ModernWaveUI extends StatelessWidget {
   final Map<String, dynamic>? latestPacket;
   final Map<String, dynamic>? previousPacket;
 
@@ -106,15 +110,15 @@ class BluetoothHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildNotificationBar(),
+        _buildNotificationBar(context),
         Expanded(
-          child: _buildMainCircle(),
+          child: _buildMainCircle(context),
         ),
       ],
     );
   }
 
-  Widget _buildNotificationBar() {
+  Widget _buildNotificationBar(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.all(12),
@@ -137,13 +141,13 @@ class BluetoothHomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Time to drink water • now',
+                  S.of(context).timeToDrinkWater,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  'Stay hydrated by drinking water!',
+                  S.of(context).stayHydrated,
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
@@ -158,7 +162,7 @@ class BluetoothHomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMainCircle() {
+  Widget _buildMainCircle(BuildContext context) {
     return Center(
       child: Stack(
         alignment: Alignment.center,
@@ -174,7 +178,7 @@ class BluetoothHomePage extends StatelessWidget {
                   weight: latestPacket?['Weight'] ?? 0,
                   maxWeight: 1000,
                 ),
-                ..._buildSatelliteButtons(),
+                ..._buildSatelliteButtons(context),
               ],
             ),
           ),
@@ -183,34 +187,34 @@ class BluetoothHomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildSatelliteButtons() {
+  List<Widget> _buildSatelliteButtons(BuildContext context) {
     final buttonData = [
       {
         'icon': Icons.battery_full,
         'value': '${latestPacket?['Battery']?.toString() ?? ''}%',
         'previousValue': '${previousPacket?['Battery']?.toString()}%',
-        'label': 'Battery',
+        'label': S.of(context).battery,
         'angle': -pi/2
       },
       {
         'icon': Icons.water_drop,
         'value': '${latestPacket?['Product Type']?.toString() ?? ''}',
         'previousValue': previousPacket?['Product Type']?.toString(),
-        'label': 'Type',
+        'label': S.of(context).type,
         'angle': 0.0
       },
       {
         'icon': Icons.key,
         'value': '${latestPacket?['Serial Number']?.toString() ?? ''}',
         'previousValue': previousPacket?['Serial Number']?.toString(),
-        'label': 'Serial',
+        'label': S.of(context).serial,
         'angle': pi/2
       },
       {
         'icon': Icons.power_settings_new,
-        'value': 'On',
-        'previousValue': 'On',
-        'label': 'Power',
+        'value': S.of(context).on,
+        'previousValue': S.of(context).on,
+        'label': S.of(context).power,
         'angle': pi
       },
     ];
@@ -232,7 +236,9 @@ class BluetoothHomePage extends StatelessWidget {
       );
     }).toList();
   }
-}class WaterDropContainer extends StatefulWidget {
+}
+
+class WaterDropContainer extends StatefulWidget {
   final double size;
   final double weight;
   final double maxWeight;

@@ -9,10 +9,21 @@ import 'Constant/ConstantStyling.dart';
 import 'screens/bluetooth_home_page.dart';
 import 'generated/l10n.dart';
 import 'helpers/notification_helper.dart';
+import 'providers/language_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   // Ensure that the Flutter framework is initialized before interacting with platform channels
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 预热 SharedPreferences - 添加这段代码
+  try {
+    await SharedPreferences.getInstance();
+    debugPrint('SharedPreferences 预热成功');
+  } catch (e) {
+    debugPrint('SharedPreferences 预热失败: $e');
+    // 继续执行，LanguageProvider 将处理重试
+  }
 
   // Initialize NotificationHelper
   await NotificationHelper.initialize();
@@ -29,12 +40,14 @@ void main() async {
 
     // Run the main app
     runApp(
-      ChangeNotifierProvider(
-        create: (context) => BluetoothProvider(),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => BluetoothProvider()),
+          ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ],
         child: const BluetoothApp(),
       ),
     );
-
   }
 }
 
@@ -43,21 +56,25 @@ class BluetoothApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Bluetooth Water Bottle',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      locale: const Locale('en'),
-      home: HomeScreen(),
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, child) {
+        return MaterialApp(
+          title: 'Bluetooth Water Bottle',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          locale: languageProvider.locale,
+          home: HomeScreen(),
+        );
+      },
     );
   }
 }
@@ -67,16 +84,18 @@ class PermissionDeniedApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      locale: const Locale('en'),
-      home: Scaffold(
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, child) {
+        return MaterialApp(
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          locale: languageProvider.locale,
+          home: Scaffold(
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -108,6 +127,8 @@ class PermissionDeniedApp extends StatelessWidget {
           ),
         ),
       ),
+        );
+      },
     );
   }
 }

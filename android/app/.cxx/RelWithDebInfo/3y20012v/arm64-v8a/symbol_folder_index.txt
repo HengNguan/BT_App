@@ -1,0 +1,1 @@
+D:\StudioProjects\BT_App\build\app\intermediates\cxx\RelWithDebInfo\3y20012v\obj\arm64-v8a

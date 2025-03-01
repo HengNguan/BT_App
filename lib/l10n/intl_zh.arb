@@ -1,6 +1,73 @@
 {
   "@@locale": "zh",
 
+  "language_provider": "==================== 语言提供者 ==================== ",
+  "loadLanguageSuccess": "成功加载语言设置：{languageCode}",
+  "@loadLanguageSuccess": {
+    "description": "显示语言设置成功加载时的消息",
+    "placeholders": {
+      "languageCode": {
+        "type": "String",
+        "example": "zh"
+      }
+    }
+  },
+  "loadLanguageRetryFailed": "语言设置加载尝试 {attempt} 失败：{error}",
+  "@loadLanguageRetryFailed": {
+    "description": "显示语言设置加载尝试失败时的消息",
+    "placeholders": {
+      "attempt": {
+        "type": "int",
+        "example": "1"
+      },
+      "error": {
+        "type": "String",
+        "example": "超时"
+      }
+    }
+  },
+  "loadLanguageMaxRetries": "在 {maxRetries} 次尝试后无法加载语言设置，使用默认语言",
+  "@loadLanguageMaxRetries": {
+    "description": "显示达到最大重试次数时的消息",
+    "placeholders": {
+      "maxRetries": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "getPrefsTimeout": "SharedPreferences 初始化超时",
+  "getPrefsError": "获取 SharedPreferences 失败：{error}",
+  "@getPrefsError": {
+    "description": "显示 SharedPreferences 访问失败时的消息",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "错误信息"
+      }
+    }
+  },
+  "saveLanguageSuccess": "语言设置已保存：{languageCode}",
+  "@saveLanguageSuccess": {
+    "description": "显示语言设置成功保存时的消息",
+    "placeholders": {
+      "languageCode": {
+        "type": "String",
+        "example": "zh"
+      }
+    }
+  },
+  "saveLanguageError": "保存语言设置失败：{error}",
+  "@saveLanguageError": {
+    "description": "显示保存语言设置失败时的消息",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "错误信息"
+      }
+    }
+  },
+
   "permission_denied_page": "==================== 权限被拒页面 ==================== ",
   "permissionNeeded": "所需权限",
   "permissionDenied": "哎呀！似乎缺少一些必要的权限。请在设置中启用它们以继续使用该应用。",
@@ -32,6 +99,17 @@
   "bluetoothScanner": "蓝牙扫描器",
   "dataPacketReceived": "已接收到数据包：",
   "parsedData": "解析数据",
+  "scanForDevices": "扫描设备",
+  "deviceId": "设备ID",
+  "connect": "连接",
+  "disconnect": "断开连接",
+  "timeToDrinkWater": "该喝水了 • 现在",
+  "stayHydrated": "保持水分摄入很重要！",
+  "battery": "电量",
+  "type": "类型",
+  "serial": "序列号",
+  "power": "电源",
+  "on": "开启",
 
   "calendar_page": "==================== 日历页面 ==================== ",
   "overview": "概览",
