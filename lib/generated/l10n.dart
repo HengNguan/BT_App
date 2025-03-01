@@ -18,17 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,13 +44,95 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
+  }
+
+  /// `==================== Language Provider ==================== `
+  String get language_provider {
+    return Intl.message(
+      '==================== Language Provider ==================== ',
+      name: 'language_provider',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully loaded language setting: {languageCode}`
+  String loadLanguageSuccess(String languageCode) {
+    return Intl.message(
+      'Successfully loaded language setting: $languageCode',
+      name: 'loadLanguageSuccess',
+      desc: 'Message shown when language setting is successfully loaded',
+      args: [languageCode],
+    );
+  }
+
+  /// `Language setting load attempt {attempt} failed: {error}`
+  String loadLanguageRetryFailed(int attempt, String error) {
+    return Intl.message(
+      'Language setting load attempt $attempt failed: $error',
+      name: 'loadLanguageRetryFailed',
+      desc: 'Message shown when a language setting load attempt fails',
+      args: [attempt, error],
+    );
+  }
+
+  /// `Unable to load language settings after {maxRetries} attempts, using default language`
+  String loadLanguageMaxRetries(int maxRetries) {
+    return Intl.message(
+      'Unable to load language settings after $maxRetries attempts, using default language',
+      name: 'loadLanguageMaxRetries',
+      desc: 'Message shown when maximum retry attempts are reached',
+      args: [maxRetries],
+    );
+  }
+
+  /// `SharedPreferences initialization timeout`
+  String get getPrefsTimeout {
+    return Intl.message(
+      'SharedPreferences initialization timeout',
+      name: 'getPrefsTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to get SharedPreferences: {error}`
+  String getPrefsError(String error) {
+    return Intl.message(
+      'Failed to get SharedPreferences: $error',
+      name: 'getPrefsError',
+      desc: 'Message shown when SharedPreferences access fails',
+      args: [error],
+    );
+  }
+
+  /// `Language setting saved: {languageCode}`
+  String saveLanguageSuccess(String languageCode) {
+    return Intl.message(
+      'Language setting saved: $languageCode',
+      name: 'saveLanguageSuccess',
+      desc: 'Message shown when language setting is successfully saved',
+      args: [languageCode],
+    );
+  }
+
+  /// `Failed to save language setting: {error}`
+  String saveLanguageError(String error) {
+    return Intl.message(
+      'Failed to save language setting: $error',
+      name: 'saveLanguageError',
+      desc: 'Message shown when saving language setting fails',
+      args: [error],
+    );
   }
 
   /// `==================== Permission Denied page ==================== `
@@ -232,12 +317,77 @@ class S {
 
   /// `Parsed Data`
   String get parsedData {
+    return Intl.message('Parsed Data', name: 'parsedData', desc: '', args: []);
+  }
+
+  /// `Scan for Devices`
+  String get scanForDevices {
     return Intl.message(
-      'Parsed Data',
-      name: 'parsedData',
+      'Scan for Devices',
+      name: 'scanForDevices',
       desc: '',
       args: [],
     );
+  }
+
+  /// `ID`
+  String get deviceId {
+    return Intl.message('ID', name: 'deviceId', desc: '', args: []);
+  }
+
+  /// `Connect`
+  String get connect {
+    return Intl.message('Connect', name: 'connect', desc: '', args: []);
+  }
+
+  /// `Disconnect`
+  String get disconnect {
+    return Intl.message('Disconnect', name: 'disconnect', desc: '', args: []);
+  }
+
+  /// `Time to drink water • now`
+  String get timeToDrinkWater {
+    return Intl.message(
+      'Time to drink water • now',
+      name: 'timeToDrinkWater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay hydrated by drinking water!`
+  String get stayHydrated {
+    return Intl.message(
+      'Stay hydrated by drinking water!',
+      name: 'stayHydrated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Battery`
+  String get battery {
+    return Intl.message('Battery', name: 'battery', desc: '', args: []);
+  }
+
+  /// `Type`
+  String get type {
+    return Intl.message('Type', name: 'type', desc: '', args: []);
+  }
+
+  /// `Serial`
+  String get serial {
+    return Intl.message('Serial', name: 'serial', desc: '', args: []);
+  }
+
+  /// `Power`
+  String get power {
+    return Intl.message('Power', name: 'power', desc: '', args: []);
+  }
+
+  /// `On`
+  String get on {
+    return Intl.message('On', name: 'on', desc: '', args: []);
   }
 
   /// `==================== Calendar page ==================== `
@@ -252,12 +402,7 @@ class S {
 
   /// `Overview`
   String get overview {
-    return Intl.message(
-      'Overview',
-      name: 'overview',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Overview', name: 'overview', desc: '', args: []);
   }
 
   /// `Progress / Goal`
@@ -282,32 +427,17 @@ class S {
 
   /// `Drink Log`
   String get drinkLog {
-    return Intl.message(
-      'Drink Log',
-      name: 'drinkLog',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Drink Log', name: 'drinkLog', desc: '', args: []);
   }
 
   /// `View All`
   String get viewAll {
-    return Intl.message(
-      'View All',
-      name: 'viewAll',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('View All', name: 'viewAll', desc: '', args: []);
   }
 
   /// `Today`
   String get today {
-    return Intl.message(
-      'Today',
-      name: 'today',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Today', name: 'today', desc: '', args: []);
   }
 
   /// `No data available`
@@ -315,36 +445,6 @@ class S {
     return Intl.message(
       'No data available',
       name: 'noDataAvailable',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `==================== Reminder Service ==================== `
-  String get reminder_service {
-    return Intl.message(
-      '==================== Reminder Service ==================== ',
-      name: 'reminder_service',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Time to drink water`
-  String get reminder_title {
-    return Intl.message(
-      'Time to drink water',
-      name: 'reminder_title',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stay hydrated by drinking water!`
-  String get reminder_content {
-    return Intl.message(
-      'Stay hydrated by drinking water!',
-      name: 'reminder_content',
       desc: '',
       args: [],
     );
