@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../services/calibration_service.dart';
 import '../services/reminder_service.dart';
 
 class BluetoothProvider extends ChangeNotifier {
@@ -10,6 +11,7 @@ class BluetoothProvider extends ChangeNotifier {
   String _connectionStatus = '';
   List<Map<String, dynamic>> _parsedDataPackets = [];
   BluetoothDevice? _connectedDevice;
+  final CalibrationService _calibrationService = CalibrationService();
 
   // Getters
   List<ScanResult> get scanResults => _scanResults;
@@ -94,8 +96,17 @@ class BluetoothProvider extends ChangeNotifier {
     }
   }
 
-  void _parseDataPacket(List<int> dataPacket) {
+  void _parseDataPacket(List<int> dataPacket) async {
     if (dataPacket.length >= 16) { // Ensure enough data is present
+      // DeviceID
+      String deviceId = _connectedDevice?.remoteId.toString() ?? '';
+      // CalibrationValue
+      double? calibrationValue = await _calibrationService.getCalibrationValue(deviceId);
+      
+      // Calculate weight
+      double rawWeight = ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0;
+      double adjustedWeight = calibrationValue != null ? rawWeight - calibrationValue : rawWeight;
+      
       Map<String, dynamic> parsedData = {
         'Length': dataPacket[0],
         'Product Type': dataPacket[1],
@@ -105,7 +116,7 @@ class BluetoothProvider extends ChangeNotifier {
             .join(),
         'Power Status': dataPacket[6] == 1 ? 'On' : 'Off',
         'Temperature': ((dataPacket[7] << 8) | dataPacket[8]) / 10.0,
-        'Weight': ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0,
+        'Weight': adjustedWeight,
         'Battery': dataPacket[12],
         'Reserved': dataPacket
             .sublist(13, 15)

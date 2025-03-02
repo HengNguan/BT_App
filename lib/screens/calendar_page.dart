@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../Constant/ConstantString.dart';
 import '../Constant/ConstantStyling.dart';
 import '../generated/l10n.dart';
+import '../widgets/language_switch_button.dart';
 
 class CalendarTab extends StatefulWidget {
   @override
@@ -64,6 +65,22 @@ class _CalendarTabState extends State<CalendarTab> {
       initialDate: _selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime.now(), // Disallow future dates
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Color(0xFF2E7CFF),
+              onPrimary: Colors.white,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Color(0xFF2E7CFF),
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null && picked != _selectedDate) {
       setState(() {
@@ -91,7 +108,7 @@ class _CalendarTabState extends State<CalendarTab> {
   // Sort the drink logs by time
   void _sortDrinkLogsByTime() {
     DateFormat timeFormat =
-        DateFormat('h:mm a'); // Parse time in "8:00 AM" format
+    DateFormat('h:mm a'); // Parse time in "8:00 AM" format
     _currentDrinkLogs!.sort((a, b) {
       DateTime timeA = timeFormat.parse(a['time']!);
       DateTime timeB = timeFormat.parse(b['time']!);
@@ -105,93 +122,267 @@ class _CalendarTabState extends State<CalendarTab> {
     for (var log in _currentDrinkLogs!) {
       String volumeString = log['volume']!;
       int volume =
-          int.parse(volumeString.split(' ')[0]); // Extract number from "200 ML"
+      int.parse(volumeString.split(' ')[0]); // Extract number from "200 ML"
       _totalVolume += volume;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // 获取屏幕高度，以便计算需要填充的空间
+    final screenHeight = MediaQuery.of(context).size.height;
+    final appBarHeight = 0; // 没有AppBar
+    final bottomNavBarHeight = 56.0; // 底部导航栏的高度
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      // Avoid content overflow when keyboard is displayed
-      body: Stack(
-        children: [
-          // Background image
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/water_background.png'),
-                // Background image
-                fit: BoxFit
-                    .cover, // Make sure the background covers the entire screen
-              ),
-            ),
+      body: Container(
+        height: screenHeight,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFF2F7FF),
+              Color(0xFFE6F0FF),
+            ],
           ),
-          SafeArea(
-            child: SingleChildScrollView(
-              // Allow content scrolling
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildDateHeader(), // Date header with arrows
-                    const SizedBox(height: 20),
-                    _buildOverviewSection(), // Overview section
-                    const SizedBox(height: 20),
-                    _buildDrinkLogSection(context), // Drink Log section
-                  ],
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              // 主内容可滚动区域
+              SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  // 确保最小高度填充整个可见区域
+                  constraints: BoxConstraints(
+                    minHeight: screenHeight - statusBarHeight - bottomNavBarHeight - 30, // 减去一些边距
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 40), // 增加空间，确保不会与语言切换按钮重叠
+                        _buildDateHeader(), // Date header with arrows
+                        SizedBox(height: 24),
+                        _buildWaterCircle(), // Water tracking circle
+                        SizedBox(height: 24),
+                        _buildOverviewSection(), // Overview section
+                        SizedBox(height: 24),
+                        _buildDrinkLogSection(context), // Drink Log section
+                        SizedBox(height: 50), // 底部额外空间填充
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+              // Language switcher positioned at top-right
+              Positioned(
+                top: 16,
+                right: 16,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 8,
+                        spreadRadius: 0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: LanguageSwitchButton(),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
   // Build the header with the current date and navigation arrows
   Widget _buildDateHeader() {
-    String formattedDate = DateFormat('EEEE, MMMM d')
-        .format(_selectedDate); // "Monday, October 1"
+    String formattedDate = DateFormat('EEEE, MMMM d').format(_selectedDate);
+    bool isToday = DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
+        .isAtSameMomentAs(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day));
 
-    // Compare only the date part (year, month, day) to check if it's today
-    bool isToday =
-        DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
-            .isAtSameMomentAs(DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day));
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_left),
-          onPressed: _decreaseDate,
-        ),
-        GestureDetector(
-          onTap: () => _selectDate(context),
-          child: Row(
-            children: [
-              Text(
-                isToday
-                    ? '${S.of(context).today} (${DateFormat('yyyy-MM-dd').format(_selectedDate)})'
-                    : formattedDate,
-                style: AppTextStyles.bold12,
-              ),
-            ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            spreadRadius: 0,
+            offset: Offset(0, 2),
           ),
+        ],
+      ),
+      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _buildDateNavButton(Icons.arrow_back_ios, _decreaseDate),
+          GestureDetector(
+            onTap: () => _selectDate(context),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.calendar_today,
+                  size: 20,
+                  color: Color(0xFF2E7CFF),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  isToday
+                      ? '${S.of(context).today}'
+                      : formattedDate,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF333333),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _buildDateNavButton(
+            Icons.arrow_forward_ios,
+            DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day)
+                .isBefore(DateTime(
+                DateTime.now().year, DateTime.now().month, DateTime.now().day))
+                ? _increaseDate
+                : null,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDateNavButton(IconData icon, Function()? onPressed) {
+    return Container(
+      width: 36,
+      height: 36,
+      decoration: BoxDecoration(
+        color: onPressed == null ? Colors.grey.withOpacity(0.1) : Color(0xFFE6F0FF),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: IconButton(
+        icon: Icon(
+          icon,
+          size: 16,
+          color: onPressed == null ? Colors.grey : Color(0xFF2E7CFF),
         ),
-        IconButton(
-          icon: Icon(Icons.arrow_right),
-          onPressed: DateTime(_selectedDate.year, _selectedDate.month,
-                      _selectedDate.day)
-                  .isBefore(DateTime(DateTime.now().year, DateTime.now().month,
-                      DateTime.now().day))
-              ? _increaseDate
-              : null,
+        onPressed: onPressed,
+        padding: EdgeInsets.zero,
+      ),
+    );
+  }
+
+  // Build Water Circle Widget
+  Widget _buildWaterCircle() {
+    double percentage = _hasData ? (_totalVolume / 3000).clamp(0.0, 1.0) : 0.0;
+
+    return Center(
+      child: Container(
+        width: 200,
+        height: 200,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF2E7CFF).withOpacity(0.1),
+              blurRadius: 15,
+              spreadRadius: 0,
+              offset: Offset(0, 5),
+            ),
+          ],
         ),
-      ],
+        child: Stack(
+          children: [
+            Center(
+              child: Container(
+                width: 190,
+                height: 190,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Color(0xFF2E7CFF).withOpacity(0.2),
+                    width: 2,
+                  ),
+                ),
+              ),
+            ),
+            // Water
+            ClipOval(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                heightFactor: percentage,
+                child: Container(
+                  width: 190,
+                  height: 190,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF2E7CFF).withOpacity(0.3),
+                  ),
+                ),
+              ),
+            ),
+            // Simple Wave
+            ClipOval(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                heightFactor: percentage,
+                child: Container(
+                  width: 190,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Color(0xFF2E7CFF).withOpacity(0.2),
+                        Color(0xFF2E7CFF).withOpacity(0.3),
+                        Color(0xFF2E7CFF).withOpacity(0.2),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Text
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${_hasData ? "$_totalVolume" : "0"}',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2E7CFF),
+                    ),
+                  ),
+                  Text(
+                    'ML',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Color(0xFF2E7CFF),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -200,20 +391,34 @@ class _CalendarTabState extends State<CalendarTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(S.of(context).overview, style: AppTextStyles.title18Bold),
-        const SizedBox(height: 20),
+        Text(
+          S.of(context).overview,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF2E7CFF),
+          ),
+        ),
+        SizedBox(height: 16),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildOverviewCard(S.of(context).progressGoal,
-                _hasData ? '$_totalVolume / 3000 ML' : 'NIL'),
-            // Display total volume dynamically
-            _buildOverviewCard(
-                S.of(context).percentGoal,
-                _hasData
+            Expanded(
+              child: _buildOverviewCard(
+                title: S.of(context).progressGoal,
+                value: _hasData ? '$_totalVolume / 3000 ML' : 'NIL',
+                icon: Icons.bar_chart,
+              ),
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: _buildOverviewCard(
+                title: S.of(context).percentGoal,
+                value: _hasData
                     ? '${(_totalVolume / 3000 * 100).toStringAsFixed(1)}%'
-                    : 'NIL'),
-            // Calculate percentage based on total volume
+                    : 'NIL',
+                icon: Icons.pie_chart,
+              ),
+            ),
           ],
         ),
       ],
@@ -221,18 +426,65 @@ class _CalendarTabState extends State<CalendarTab> {
   }
 
   // Build individual Overview cards
-  Widget _buildOverviewCard(String title, String value) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: AppTextStyles.grey12Regular),
-            const SizedBox(height: 10),
-            Text(value, style: AppTextStyles.regular12),
-          ],
-        ),
+  Widget _buildOverviewCard({
+    required String title,
+    required String value,
+    required IconData icon,
+  }) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            spreadRadius: 0,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F0FF),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: Color(0xFF2E7CFF),
+              size: 20,
+            ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -240,55 +492,138 @@ class _CalendarTabState extends State<CalendarTab> {
   // Build the Drink Log section
   Widget _buildDrinkLogSection(BuildContext context) {
     List<Map<String, String>> displayedLogs =
-        _currentDrinkLogs!.take(5).toList(); // Show up to 5 logs
+        _currentDrinkLogs?.take(5).toList() ?? [];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // Drink Log title and View All button
           children: [
-            Text(S.of(context).drinkLog, style: AppTextStyles.title18Bold),
-            // Only show View All if there are more than 5 logs
-            _hasData && _currentDrinkLogs!.length > 5
-                ? TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DrinkLogPage(drinkLogs: _currentDrinkLogs!)),
-                      );
-                    },
-                    child: Text(S.of(context).viewAll,
-                        style: AppTextStyles.regular12),
-                  )
-                : Container(),
+            Text(
+              S.of(context).drinkLog,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2E7CFF),
+              ),
+            ),
+            if (_hasData && (_currentDrinkLogs?.length ?? 0) > 5)
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DrinkLogPage(drinkLogs: _currentDrinkLogs!),
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Color(0xFF2E7CFF),
+                ),
+                child: Text(
+                  S.of(context).viewAll,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
           ],
         ),
-        const SizedBox(height: 10),
-        // Show logs or "No more data" message if there are no logs
-        _hasData
-            ? Column(
-                children: displayedLogs
-                    .map((log) =>
-                        _buildDrinkLogItem(log['time']!, log['volume']!))
-                    .toList(),
-              )
-            : Center(
-                child: Text(S.of(context).noDataAvailable,
-                    style: AppTextStyles.regular12),
+        SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                spreadRadius: 0,
+                offset: Offset(0, 2),
               ),
+            ],
+          ),
+          child: _hasData && displayedLogs.isNotEmpty
+              ? ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: displayedLogs.length,
+            separatorBuilder: (context, index) => Divider(
+              height: 1,
+              color: Colors.grey.withOpacity(0.2),
+            ),
+            itemBuilder: (context, index) {
+              final log = displayedLogs[index];
+              return _buildDrinkLogItem(log['time']!, log['volume']!);
+            },
+          )
+              : Padding(
+            padding: EdgeInsets.all(16),
+            child: Center(
+              child: Text(
+                S.of(context).noDataAvailable,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 
   // Build individual Drink Log items
   Widget _buildDrinkLogItem(String time, String volume) {
-    return ListTile(
-      title: Text(time),
-      trailing: Text(volume),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F0FF),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Icons.water_drop,
+              color: Color(0xFF2E7CFF),
+              size: 18,
+            ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              time,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F0FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              volume,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF2E7CFF),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -303,17 +638,98 @@ class DrinkLogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).drinkLog),
+        title: Text(
+          S.of(context).drinkLog,
+          style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Color(0xFF2E7CFF),
+        ),
       ),
-      body: ListView.builder(
-        itemCount: drinkLogs.length,
-        itemBuilder: (context, index) {
-          final log = drinkLogs[index];
-          return ListTile(
-            title: Text(log['time']!),
-            trailing: Text(log['volume']!),
-          );
-        },
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFF2F7FF),
+              Color(0xFFE6F0FF),
+            ],
+          ),
+        ),
+        child: ListView.separated(
+          padding: EdgeInsets.all(20),
+          itemCount: drinkLogs.length,
+          separatorBuilder: (context, index) => SizedBox(height: 8),
+          itemBuilder: (context, index) {
+            final log = drinkLogs[index];
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 8,
+                    spreadRadius: 0,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFE6F0FF),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.water_drop,
+                        color: Color(0xFF2E7CFF),
+                        size: 18,
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        log['time']!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFE6F0FF),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        log['volume']!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF2E7CFF),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

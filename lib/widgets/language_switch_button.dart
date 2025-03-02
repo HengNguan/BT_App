@@ -10,15 +10,37 @@ class LanguageSwitchButton extends StatelessWidget {
     return Consumer<LanguageProvider>(
       builder: (context, languageProvider, child) {
         final isEnglish = languageProvider.locale.languageCode == 'en';
-        return IconButton(
-          icon: Icon(
-            isEnglish ? Icons.language : Icons.translate,
-            size: 24,
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                spreadRadius: 0,
+                offset: Offset(0, 2),
+              ),
+            ],
           ),
-          onPressed: () {
-            languageProvider.toggleLanguage();
-          },
-          tooltip: isEnglish ? '切换到中文' : 'Switch to English',
+          child: Material(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: () {
+                languageProvider.toggleLanguage();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  isEnglish ? Icons.language : Icons.translate,
+                  color: Color(0xFF2E7CFF),
+                  size: 24,
+                ),
+              ),
+            ),
+          ),
         );
       },
     );

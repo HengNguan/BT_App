@@ -275,10 +275,10 @@ class S {
     );
   }
 
-  /// `Successful Connect`
+  /// `Successfully Connected`
   String get successfulConnect {
     return Intl.message(
-      'Successful Connect',
+      'Successfully Connected',
       name: 'successfulConnect',
       desc: '',
       args: [],
@@ -315,9 +315,109 @@ class S {
     );
   }
 
-  /// `Parsed Data`
-  String get parsedData {
-    return Intl.message('Parsed Data', name: 'parsedData', desc: '', args: []);
+  /// `Calibration`
+  String get calibration {
+    return Intl.message('Calibration', name: 'calibration', desc: '', args: []);
+  }
+
+  /// `Calibration History`
+  String get calibrationHistory {
+    return Intl.message(
+      'Calibration History',
+      name: 'calibrationHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter calibration value (in grams):`
+  String get enterCalibrationValue {
+    return Intl.message(
+      'Enter calibration value (in grams):',
+      name: 'enterCalibrationValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter weight value`
+  String get calibrationValueHint {
+    return Intl.message(
+      'Enter weight value',
+      name: 'calibrationValueHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Current Value`
+  String get useCurrentValue {
+    return Intl.message(
+      'Use Current Value',
+      name: 'useCurrentValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message('Save', name: 'save', desc: '', args: []);
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Close`
+  String get close {
+    return Intl.message('Close', name: 'close', desc: '', args: []);
+  }
+
+  /// `Calibration saved successfully`
+  String get calibrationSaved {
+    return Intl.message(
+      'Calibration saved successfully',
+      name: 'calibrationSaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calibration deleted`
+  String get calibrationDeleted {
+    return Intl.message(
+      'Calibration deleted',
+      name: 'calibrationDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No calibration history found`
+  String get noCalibrationHistory {
+    return Intl.message(
+      'No calibration history found',
+      name: 'noCalibrationHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get value {
+    return Intl.message('Value', name: 'value', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message('Date', name: 'date', desc: '', args: []);
+  }
+
+  /// `Scanning...`
+  String get scanning {
+    return Intl.message('Scanning...', name: 'scanning', desc: '', args: []);
   }
 
   /// `Scan for Devices`
@@ -325,6 +425,16 @@ class S {
     return Intl.message(
       'Scan for Devices',
       name: 'scanForDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown Device`
+  String get unknownDevice {
+    return Intl.message(
+      'Unknown Device',
+      name: 'unknownDevice',
       desc: '',
       args: [],
     );
@@ -343,26 +453,6 @@ class S {
   /// `Disconnect`
   String get disconnect {
     return Intl.message('Disconnect', name: 'disconnect', desc: '', args: []);
-  }
-
-  /// `Time to drink water • now`
-  String get timeToDrinkWater {
-    return Intl.message(
-      'Time to drink water • now',
-      name: 'timeToDrinkWater',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stay hydrated by drinking water!`
-  String get stayHydrated {
-    return Intl.message(
-      'Stay hydrated by drinking water!',
-      name: 'stayHydrated',
-      desc: '',
-      args: [],
-    );
   }
 
   /// `Battery`
@@ -388,6 +478,76 @@ class S {
   /// `On`
   String get on {
     return Intl.message('On', name: 'on', desc: '', args: []);
+  }
+
+  /// `Time to drink water • now`
+  String get timeToDrinkWater {
+    return Intl.message(
+      'Time to drink water • now',
+      name: 'timeToDrinkWater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay hydrated by drinking water!`
+  String get stayHydrated {
+    return Intl.message(
+      'Stay hydrated by drinking water!',
+      name: 'stayHydrated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available`
+  String get availableDevices {
+    return Intl.message(
+      'Available',
+      name: 'availableDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connected Device`
+  String get connectedDevice {
+    return Intl.message(
+      'Connected Device',
+      name: 'connectedDevice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device Info`
+  String get deviceInfo {
+    return Intl.message('Device Info', name: 'deviceInfo', desc: '', args: []);
+  }
+
+  /// `Confirm Delete`
+  String get confirmDelete {
+    return Intl.message(
+      'Confirm Delete',
+      name: 'confirmDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this calibration record?`
+  String get confirmDeleteCalibration {
+    return Intl.message(
+      'Are you sure you want to delete this calibration record?',
+      name: 'confirmDeleteCalibration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
   }
 
   /// `==================== Calendar page ==================== `
