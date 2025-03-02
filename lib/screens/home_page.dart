@@ -19,8 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    //HomeTab(),
-    //const DefaultPage(),
     BluetoothHomePage(),
     CalendarTab(),
   ];
@@ -39,28 +37,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).bluetoothScanner),
-        actions: [
-          // 添加语言切换按钮
-          const LanguageSwitchButton(),
-        ],
-      ),
+      // Removed AppBar completely
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         // Ensure labels are always shown
-        items: const <BottomNavigationBarItem>[
-         // BottomNavigationBarItem(
-         //   icon: Icon(Icons.error_outline),
-         //   label: 'Placeholder',
-         // ),
-         // BottomNavigationBarItem(
-         //   icon: Icon(Icons.person),
-         //   label: 'User UI',
-         // ),
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -71,19 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Color(0xFF2E7CFF),
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
-    );
-  }
-}
-
-class HomeTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(S.of(context).homeTabContent, style: AppTextStyles.title18Bold)
     );
   }
 }

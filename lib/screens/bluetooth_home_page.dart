@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Base/bluetooth_provider.dart';
 import 'dart:math';
-
+import '../widgets/language_switch_button.dart';
 import '../generated/l10n.dart';
 
 class BluetoothHomePage extends StatelessWidget {
@@ -13,37 +13,61 @@ class BluetoothHomePage extends StatelessWidget {
     return Consumer<BluetoothProvider>(
       builder: (context, bluetoothProvider, child) {
         return Scaffold(
-          body: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/water_background.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFF2F7FF),
+                  Color(0xFFE6F0FF),
+                ],
               ),
-              SafeArea(
-                child: Center(
-                  child: bluetoothProvider.connectedDevice == null
-                      ? _buildInitialUI(context, bluetoothProvider)
-                      : ModernWaveUI(
-                    latestPacket: bluetoothProvider.parsedDataPackets.isNotEmpty
-                        ? bluetoothProvider.parsedDataPackets.last
-                        : null,
-                    previousPacket: bluetoothProvider.parsedDataPackets.length > 1
-                        ? bluetoothProvider.parsedDataPackets[bluetoothProvider.parsedDataPackets.length - 2]
-                        : null,
+            ),
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  Center(
+                    child: bluetoothProvider.connectedDevice == null
+                        ? _buildInitialUI(context, bluetoothProvider)
+                        : DeviceDetailUI(
+                      latestPacket: bluetoothProvider.parsedDataPackets.isNotEmpty
+                          ? bluetoothProvider.parsedDataPackets.last
+                          : null,
+                      previousPacket: bluetoothProvider.parsedDataPackets.length > 1
+                          ? bluetoothProvider.parsedDataPackets[bluetoothProvider.parsedDataPackets.length - 2]
+                          : null,
+                    ),
                   ),
-                ),
+                  // Language switcher positioned at top-right
+                  Positioned(
+                    top: 16,
+                    right: 16,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: LanguageSwitchButton(),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
           floatingActionButton: bluetoothProvider.connectedDevice != null
               ? FloatingActionButton(
             onPressed: bluetoothProvider.disconnectDevice,
-            backgroundColor: Colors.blue,
-            child: Icon(Icons.bluetooth_disabled),
+            backgroundColor: Color(0xFF2E7CFF),
+            child: Icon(Icons.bluetooth_disabled, color: Colors.white),
             tooltip: S.of(context).disconnect,
           )
               : null,
@@ -53,54 +77,247 @@ class BluetoothHomePage extends StatelessWidget {
   }
 
   Widget _buildInitialUI(BuildContext context, BluetoothProvider provider) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: provider.isScanning ? null : provider.startScanning,
-          child: Text(provider.isScanning ? S.of(context).connecting : S.of(context).scanForDevices),
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            textStyle: TextStyle(fontSize: 20),
+    return CustomScrollView(
+      physics: BouncingScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 40), // Extra space to account for language switcher
+                Text(
+                  S.of(context).bluetoothScanner,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2E7CFF),
+                  ),
+                ),
+                SizedBox(height: 20),
+                // Scan button with icon
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 15,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.bluetooth,
+                      size: 30,
+                      color: Color(0xFF2E7CFF),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24),
+                // Scan button
+                Container(
+                  width: 220,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: provider.isScanning ? null : provider.startScanning,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF2E7CFF),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (provider.isScanning)
+                          Container(
+                            width: 18,
+                            height: 18,
+                            margin: EdgeInsets.only(right: 10),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          ),
+                        Text(
+                          provider.isScanning ? S.of(context).scanning : S.of(context).scanForDevices,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 14),
+                // Status text
+                Text(
+                  provider.connectionStatus,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF5A6B87),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
-        SizedBox(height: 20),
-        Text(provider.connectionStatus,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        if (provider.scanResults.isNotEmpty) ...[
-          SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-              itemCount: provider.scanResults.length,
-              itemBuilder: (context, index) {
+        if (provider.scanResults.isNotEmpty)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 20, bottom: 10),
+              child: Text(
+                S.of(context).availableDevices,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF2E7CFF),
+                ),
+              ),
+            ),
+          ),
+        if (provider.scanResults.isNotEmpty)
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
                 final result = provider.scanResults[index];
                 final device = result.device;
                 final deviceName = result.advertisementData.localName.isNotEmpty
                     ? result.advertisementData.localName
-                    : 'Unknown Device';
+                    : S.of(context).unknownDevice;
 
-                return ListTile(
-                  title: Text(deviceName),
-                  subtitle: Text('${S.of(context).deviceId}: ${device.remoteId}'),
-                  trailing: ElevatedButton(
-                    onPressed: () => provider.connectToDevice(device),
-                    child: Text(S.of(context).connect),
+                // Determine device type by name
+                IconData iconData = Icons.bluetooth;
+
+                if (deviceName.toLowerCase().contains('headphone') ||
+                    deviceName.toLowerCase().contains('earphone') ||
+                    deviceName.toLowerCase().contains('buds') ||
+                    deviceName.toLowerCase().contains('airpods')) {
+                  iconData = Icons.headphones;
+                } else if (deviceName.toLowerCase().contains('watch') ||
+                    deviceName.toLowerCase().contains('band')) {
+                  iconData = Icons.watch;
+                } else if (deviceName.toLowerCase().contains('speaker') ||
+                    deviceName.toLowerCase().contains('soundbar')) {
+                  iconData = Icons.speaker;
+                } else if (deviceName.toLowerCase().contains('tv') ||
+                    deviceName.toLowerCase().contains('screen')) {
+                  iconData = Icons.tv;
+                }
+
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.03),
+                          blurRadius: 8,
+                          spreadRadius: 0,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFE6F0FF),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              iconData,
+                              color: Color(0xFF2E7CFF),
+                              size: 20,
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  deviceName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  device.remoteId.toString(),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 30,
+                            width: 80,
+                            child: ElevatedButton(
+                              onPressed: () => provider.connectToDevice(device),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF2E7CFF),
+                                foregroundColor: Colors.white,
+                                elevation: 0,
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              child: Text(
+                                S.of(context).connect,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
+              childCount: provider.scanResults.length,
             ),
           ),
-        ],
+        // Add bottom padding to avoid fab overlap
+        SliverToBoxAdapter(
+          child: SizedBox(height: 80),
+        ),
       ],
     );
   }
 }
 
-class ModernWaveUI extends StatelessWidget {
+class DeviceDetailUI extends StatelessWidget {
   final Map<String, dynamic>? latestPacket;
   final Map<String, dynamic>? previousPacket;
 
-  const ModernWaveUI({
+  const DeviceDetailUI({
     Key? key,
     this.latestPacket,
     this.previousPacket,
@@ -110,131 +327,179 @@ class ModernWaveUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildNotificationBar(context),
+        // Add top padding for language switcher
+        SizedBox(height: 50),
+        // Title
+        Text(
+          S.of(context).connectedDevice,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF2E7CFF),
+          ),
+        ),
         Expanded(
-          child: _buildMainCircle(context),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  _buildMainCircle(context),
+                  SizedBox(height: 30),
+                  _buildInfoCards(context),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildNotificationBar(BuildContext context) {
+  Widget _buildMainCircle(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
+      width: 280,
+      height: 280,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            spreadRadius: 0,
+            offset: Offset(0, 5),
+          ),
+        ],
+      ),
+      child: WaterDropContainer(
+        size: 280,
+        weight: latestPacket?['Weight'] ?? 0,
+        maxWeight: 1000,
+      ),
+    );
+  }
+
+  Widget _buildInfoCards(BuildContext context) {
+    return Column(
+      children: [
+        _buildInfoRow(
+          context,
+          [
+            _buildInfoCard(
+              icon: Icons.battery_full,
+              title: S.of(context).battery,
+              value: '${latestPacket?['Battery']?.toString() ?? '0'}%',
+              color: Colors.green[100]!,
+              iconColor: Colors.green,
+            ),
+            _buildInfoCard(
+              icon: Icons.power_settings_new,
+              title: S.of(context).power,
+              value: S.of(context).on,
+              color: Colors.blue[50]!,
+              iconColor: Color(0xFF2E7CFF),
+            ),
+          ],
+        ),
+        SizedBox(height: 15),
+        _buildInfoRow(
+          context,
+          [
+            _buildInfoCard(
+              icon: Icons.water_drop,
+              title: S.of(context).type,
+              value: '${latestPacket?['Product Type']?.toString() ?? 'Standard'}',
+              color: Colors.blue[50]!,
+              iconColor: Color(0xFF2E7CFF),
+            ),
+            _buildInfoCard(
+              icon: Icons.key,
+              title: S.of(context).serial,
+              value: '${latestPacket?['Serial Number']?.toString() ?? 'Unknown'}',
+              color: Colors.blue[50]!,
+              iconColor: Color(0xFF2E7CFF),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoRow(BuildContext context, List<Widget> children) {
+    return Row(
+      children: children.map((child) {
+        return Expanded(child: child);
+      }).toList(),
+    );
+  }
+
+  Widget _buildInfoCard({
+    required IconData icon,
+    required String title,
+    required String value,
+    required Color color,
+    required Color iconColor,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            spreadRadius: 0,
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: Row(
         children: [
-          Icon(Icons.water_drop, color: Colors.blue),
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: iconColor,
+              size: 18,
+            ),
+          ),
           SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  S.of(context).timeToDrinkWater,
+                  title,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  S.of(context).stayHydrated,
-                  style: TextStyle(
-                    color: Colors.grey,
                     fontSize: 12,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: Colors.black87,
                   ),
                 ),
               ],
             ),
           ),
-          Icon(Icons.keyboard_arrow_down),
         ],
       ),
     );
-  }
-
-  Widget _buildMainCircle(BuildContext context) {
-    return Center(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: 340,
-            height: 340,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                WaterDropContainer(
-                  size: 280,
-                  weight: latestPacket?['Weight'] ?? 0,
-                  maxWeight: 1000,
-                ),
-                ..._buildSatelliteButtons(context),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  List<Widget> _buildSatelliteButtons(BuildContext context) {
-    final buttonData = [
-      {
-        'icon': Icons.battery_full,
-        'value': '${latestPacket?['Battery']?.toString() ?? ''}%',
-        'previousValue': '${previousPacket?['Battery']?.toString()}%',
-        'label': S.of(context).battery,
-        'angle': -pi/2
-      },
-      {
-        'icon': Icons.water_drop,
-        'value': '${latestPacket?['Product Type']?.toString() ?? ''}',
-        'previousValue': previousPacket?['Product Type']?.toString(),
-        'label': S.of(context).type,
-        'angle': 0.0
-      },
-      {
-        'icon': Icons.key,
-        'value': '${latestPacket?['Serial Number']?.toString() ?? ''}',
-        'previousValue': previousPacket?['Serial Number']?.toString(),
-        'label': S.of(context).serial,
-        'angle': pi/2
-      },
-      {
-        'icon': Icons.power_settings_new,
-        'value': S.of(context).on,
-        'previousValue': S.of(context).on,
-        'label': S.of(context).power,
-        'angle': pi
-      },
-    ];
-
-    return buttonData.map((data) {
-      final angle = data['angle'] as double;
-      final radius = 160.0;
-      final x = radius * cos(angle);
-      final y = radius * sin(angle);
-
-      return Transform.translate(
-        offset: Offset(x, y),
-        child: SatelliteButton(
-          icon: data['icon'] as IconData,
-          value: data['value'] as String,
-          previousValue: data['previousValue'] as String?,
-          label: data['label'] as String,
-        ),
-      );
-    }).toList();
   }
 }
 
@@ -263,7 +528,7 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
   void initState() {
     super.initState();
     waveController = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 4),  // Slower wave animation for subtlety
       vsync: this,
     )..repeat();
 
@@ -308,9 +573,9 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue.shade50,
+              color: Colors.white,
               border: Border.all(
-                color: Colors.blue.shade100,
+                color: Color(0xFF2E7CFF).withOpacity(0.2),
                 width: 2,
               ),
             ),
@@ -327,9 +592,9 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
                           painter: CircularWavePainter(
                             animation: waveController,
                             fillPercentage: fillPercentage,
-                            waveColor: Colors.blue.shade600.withOpacity(0.4),
-                            frequency: 3.5,
-                            amplitude: 0.15,
+                            waveColor: Color(0xFF2E7CFF).withOpacity(0.3),
+                            frequency: 1.5,  // Less frequent waves (more gentle)
+                            amplitude: 0.03,  // Much smaller amplitude for subtle effect
                           ),
                           size: Size(widget.size, widget.size),
                         ),
@@ -337,10 +602,10 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
                           painter: CircularWavePainter(
                             animation: waveController,
                             fillPercentage: fillPercentage,
-                            waveColor: Colors.blue.shade700.withOpacity(0.3),
-                            frequency: 4.0,
-                            phase: pi,
-                            amplitude: 0.15,
+                            waveColor: Color(0xFF2E7CFF).withOpacity(0.2),
+                            frequency: 2.0,
+                            phase: pi / 2,  // Offset the waves so they don't stack
+                            amplitude: 0.02,  // Even smaller for the second wave
                           ),
                           size: Size(widget.size, widget.size),
                         ),
@@ -358,14 +623,14 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
                         style: TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                          color: Color(0xFF2E7CFF),
                         ),
                       ),
                       Text(
                         'g',
                         style: TextStyle(
                           fontSize: 24,
-                          color: Colors.blue.shade600,
+                          color: Color(0xFF2E7CFF),
                         ),
                       ),
                     ],
@@ -374,6 +639,7 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
               ],
             ),
           ),
+          // No plus button
         ],
       ),
     );
@@ -394,7 +660,7 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
           top: offset.dy - 10,
           child: Icon(
             Icons.water_drop,
-            color: Colors.blue.withOpacity(0.6),
+            color: Color(0xFF2E7CFF).withOpacity(0.6),
             size: 20,
           ),
         );
@@ -433,24 +699,36 @@ class CircularWavePainter extends CustomPainter {
       ..color = waveColor
       ..style = PaintingStyle.fill;
 
-    final path = Path();
+    // Determine wave position based on fill percentage
     final baseHeight = size.height * (1 - fillPercentage);
+
+    // Use a more subtle wave animation with reduced amplitude
     final waveHeight = size.height * amplitude;
 
+    final path = Path();
+
+    // Start from the bottom left of the circle
     path.moveTo(0, size.height);
 
+    // Create a smoother, more subtle wave pattern
     for (var i = 0.0; i <= size.width; i++) {
       final x = i;
+      final normalizedX = x / size.width;
+
+      // Create a smoother wave pattern with less dramatic peaks
       final y = baseHeight +
-          sin((x * frequency / size.width * 2 * pi) +
+          sin((normalizedX * frequency * 2 * pi) +
               (animation.value * 2 * pi) + phase) * waveHeight;
+
       path.lineTo(x, y);
     }
 
+    // Complete the path back to the bottom
     path.lineTo(size.width, size.height);
     path.close();
 
     canvas.save();
+    // Make sure to clip to the circle
     final clipPath = Path()..addOval(Rect.fromLTWH(0, 0, size.width, size.height));
     canvas.clipPath(clipPath);
     canvas.drawPath(path, paint);
@@ -469,96 +747,4 @@ class WaterDrop {
     required this.startPosition,
     required this.endPosition,
   });
-}
-
-class SatelliteButton extends StatefulWidget {
-  final IconData icon;
-  final String value;
-  final String? previousValue;
-  final String label;
-
-  const SatelliteButton({
-    Key? key,
-    required this.icon,
-    required this.value,
-    required this.label,
-    this.previousValue,
-  }) : super(key: key);
-
-  @override
-  _SatelliteButtonState createState() => _SatelliteButtonState();
-}
-
-class _SatelliteButtonState extends State<SatelliteButton> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2)
-        .chain(CurveTween(curve: Curves.easeInOut))
-        .animate(_controller);
-  }
-
-  @override
-  void didUpdateWidget(SatelliteButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.value != oldWidget.value) {
-      _controller.forward().then((_) => _controller.reverse());
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Container(
-        width: 90,
-        height: 90,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(widget.icon, color: Colors.blue.shade400, size: 24),
-            SizedBox(height: 4),
-            Text(
-              widget.value,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-            Text(
-              widget.label,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 }

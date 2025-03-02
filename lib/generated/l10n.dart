@@ -275,10 +275,10 @@ class S {
     );
   }
 
-  /// `Successful Connect`
+  /// `Successfully Connected`
   String get successfulConnect {
     return Intl.message(
-      'Successful Connect',
+      'Successfully Connected',
       name: 'successfulConnect',
       desc: '',
       args: [],
@@ -315,9 +315,9 @@ class S {
     );
   }
 
-  /// `Parsed Data`
-  String get parsedData {
-    return Intl.message('Parsed Data', name: 'parsedData', desc: '', args: []);
+  /// `Scanning...`
+  String get scanning {
+    return Intl.message('Scanning...', name: 'scanning', desc: '', args: []);
   }
 
   /// `Scan for Devices`
@@ -325,6 +325,16 @@ class S {
     return Intl.message(
       'Scan for Devices',
       name: 'scanForDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown Device`
+  String get unknownDevice {
+    return Intl.message(
+      'Unknown Device',
+      name: 'unknownDevice',
       desc: '',
       args: [],
     );
@@ -343,26 +353,6 @@ class S {
   /// `Disconnect`
   String get disconnect {
     return Intl.message('Disconnect', name: 'disconnect', desc: '', args: []);
-  }
-
-  /// `Time to drink water • now`
-  String get timeToDrinkWater {
-    return Intl.message(
-      'Time to drink water • now',
-      name: 'timeToDrinkWater',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stay hydrated by drinking water!`
-  String get stayHydrated {
-    return Intl.message(
-      'Stay hydrated by drinking water!',
-      name: 'stayHydrated',
-      desc: '',
-      args: [],
-    );
   }
 
   /// `Battery`
@@ -388,6 +378,51 @@ class S {
   /// `On`
   String get on {
     return Intl.message('On', name: 'on', desc: '', args: []);
+  }
+
+  /// `Time to drink water • now`
+  String get timeToDrinkWater {
+    return Intl.message(
+      'Time to drink water • now',
+      name: 'timeToDrinkWater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay hydrated by drinking water!`
+  String get stayHydrated {
+    return Intl.message(
+      'Stay hydrated by drinking water!',
+      name: 'stayHydrated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available`
+  String get availableDevices {
+    return Intl.message(
+      'Available',
+      name: 'availableDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connected Device`
+  String get connectedDevice {
+    return Intl.message(
+      'Connected Device',
+      name: 'connectedDevice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device Info`
+  String get deviceInfo {
+    return Intl.message('Device Info', name: 'deviceInfo', desc: '', args: []);
   }
 
   /// `==================== Calendar page ==================== `

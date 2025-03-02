@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "availableDevices": MessageLookupByLibrary.simpleMessage("可用设备"),
     "battery": MessageLookupByLibrary.simpleMessage("电量"),
     "bluetoothIsOff": MessageLookupByLibrary.simpleMessage("蓝牙已关闭或不可用"),
     "bluetoothIsOn": MessageLookupByLibrary.simpleMessage("蓝牙已开启"),
@@ -47,12 +48,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== 日历页面 ==================== ",
     ),
     "connect": MessageLookupByLibrary.simpleMessage("连接"),
+    "connectedDevice": MessageLookupByLibrary.simpleMessage("已连接设备"),
     "connecting": MessageLookupByLibrary.simpleMessage("正在连接..."),
     "dataPacketReceived": MessageLookupByLibrary.simpleMessage("已接收到数据包："),
     "default_page": MessageLookupByLibrary.simpleMessage(
       "==================== 默认页面 ==================== ",
     ),
     "deviceId": MessageLookupByLibrary.simpleMessage("设备ID"),
+    "deviceInfo": MessageLookupByLibrary.simpleMessage("设备信息"),
     "disconnect": MessageLookupByLibrary.simpleMessage("断开连接"),
     "disconnected": MessageLookupByLibrary.simpleMessage("已断开连接"),
     "drinkLog": MessageLookupByLibrary.simpleMessage("饮水记录"),
@@ -75,7 +78,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "notSupportThisDevice": MessageLookupByLibrary.simpleMessage("此设备不支持蓝牙"),
     "on": MessageLookupByLibrary.simpleMessage("开启"),
     "overview": MessageLookupByLibrary.simpleMessage("概览"),
-    "parsedData": MessageLookupByLibrary.simpleMessage("解析数据"),
     "percentGoal": MessageLookupByLibrary.simpleMessage("目标完成百分比"),
     "permissionDenied": MessageLookupByLibrary.simpleMessage(
       "哎呀！似乎缺少一些必要的权限。请在设置中启用它们以继续使用该应用。",
@@ -89,14 +91,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveLanguageError": m5,
     "saveLanguageSuccess": m6,
     "scanForDevices": MessageLookupByLibrary.simpleMessage("扫描设备"),
+    "scanning": MessageLookupByLibrary.simpleMessage("扫描中..."),
     "serial": MessageLookupByLibrary.simpleMessage("序列号"),
-    "stayHydrated": MessageLookupByLibrary.simpleMessage("保持水分摄入很重要！"),
+    "stayHydrated": MessageLookupByLibrary.simpleMessage("保持水分补充！"),
     "successfulConnect": MessageLookupByLibrary.simpleMessage("连接成功"),
-    "timeToDrinkWater": MessageLookupByLibrary.simpleMessage("该喝水了 • 现在"),
+    "timeToDrinkWater": MessageLookupByLibrary.simpleMessage("该喝水了"),
     "today": MessageLookupByLibrary.simpleMessage("今天"),
     "todayProgress": MessageLookupByLibrary.simpleMessage("今日进度"),
     "turnOnBluetooth": MessageLookupByLibrary.simpleMessage("请开启蓝牙"),
     "type": MessageLookupByLibrary.simpleMessage("类型"),
+    "unknownDevice": MessageLookupByLibrary.simpleMessage("未知设备"),
     "viewAll": MessageLookupByLibrary.simpleMessage("查看全部"),
   };
 }

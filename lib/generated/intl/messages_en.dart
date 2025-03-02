@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "availableDevices": MessageLookupByLibrary.simpleMessage("Available"),
     "battery": MessageLookupByLibrary.simpleMessage("Battery"),
     "bluetoothIsOff": MessageLookupByLibrary.simpleMessage(
       "Bluetooth is OFF or unavailable",
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== Calendar page ==================== ",
     ),
     "connect": MessageLookupByLibrary.simpleMessage("Connect"),
+    "connectedDevice": MessageLookupByLibrary.simpleMessage("Connected Device"),
     "connecting": MessageLookupByLibrary.simpleMessage("Connecting..."),
     "dataPacketReceived": MessageLookupByLibrary.simpleMessage(
       "Data Packets Received:",
@@ -62,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== Default page ==================== ",
     ),
     "deviceId": MessageLookupByLibrary.simpleMessage("ID"),
+    "deviceInfo": MessageLookupByLibrary.simpleMessage("Device Info"),
     "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
     "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
     "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
@@ -88,7 +91,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "on": MessageLookupByLibrary.simpleMessage("On"),
     "overview": MessageLookupByLibrary.simpleMessage("Overview"),
-    "parsedData": MessageLookupByLibrary.simpleMessage("Parsed Data"),
     "percentGoal": MessageLookupByLibrary.simpleMessage("% Of Goal Achieve"),
     "permissionDenied": MessageLookupByLibrary.simpleMessage(
       "Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.",
@@ -104,12 +106,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveLanguageError": m5,
     "saveLanguageSuccess": m6,
     "scanForDevices": MessageLookupByLibrary.simpleMessage("Scan for Devices"),
+    "scanning": MessageLookupByLibrary.simpleMessage("Scanning..."),
     "serial": MessageLookupByLibrary.simpleMessage("Serial"),
     "stayHydrated": MessageLookupByLibrary.simpleMessage(
       "Stay hydrated by drinking water!",
     ),
     "successfulConnect": MessageLookupByLibrary.simpleMessage(
-      "Successful Connect",
+      "Successfully Connected",
     ),
     "timeToDrinkWater": MessageLookupByLibrary.simpleMessage(
       "Time to drink water • now",
@@ -120,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please turn on Bluetooth",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Type"),
+    "unknownDevice": MessageLookupByLibrary.simpleMessage("Unknown Device"),
     "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
   };
 }
