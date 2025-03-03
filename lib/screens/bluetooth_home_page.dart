@@ -4,15 +4,60 @@ import '../Base/bluetooth_provider.dart';
 import 'dart:math';
 import '../widgets/language_switch_button.dart';
 import '../widgets/calibration_widget.dart';
+import '../widgets/guide_dialog.dart';
 import '../generated/l10n.dart';
 
-class BluetoothHomePage extends StatelessWidget {
+class BluetoothHomePage extends StatefulWidget {
   const BluetoothHomePage({Key? key}) : super(key: key);
+  @override
+  _BluetoothHomePageState createState() => _BluetoothHomePageState();
+}
 
+class _BluetoothHomePageState extends State<BluetoothHomePage> {
+  bool _hasShownGuide = false;
+  late BluetoothProvider _bluetoothProvider;
+  
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 在这里获取Provider的引用
+    _bluetoothProvider = Provider.of<BluetoothProvider>(context, listen: false);
+    // 添加监听器
+    _bluetoothProvider.addListener(_checkConnectionStatus);
+  }
+  
+  @override
+  void dispose() {
+    // 移除监听器
+    _bluetoothProvider.removeListener(_checkConnectionStatus);
+    super.dispose();
+  }
+  
+  void _checkConnectionStatus() {
+    // 使用保存的Provider引用而不是通过context获取
+    if (_bluetoothProvider.connectionStatus == 'Disconnected' && mounted) {
+      setState(() {
+        _hasShownGuide = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<BluetoothProvider>(
       builder: (context, bluetoothProvider, child) {
+        // 检查是否是首次连接设备，如果是则显示引导对话框，但确保只显示一次
+        if (bluetoothProvider.connectionStatus == 'FirstTimeConnected' && !_hasShownGuide) {
+          _hasShownGuide = true;
+          // 使用Future.microtask确保在构建完成后显示对话框
+          Future.microtask(() {
+            GuideDialog.showFirstTimeConnectionGuide(context, bluetoothProvider);
+          });
+        }
         return Scaffold(
           body: Container(
             decoration: BoxDecoration(

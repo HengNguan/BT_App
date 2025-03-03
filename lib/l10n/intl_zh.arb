@@ -132,6 +132,28 @@
   "delete": "删除",
 
 
+  "guide_dialog": "==================== 引导对话框 ==================== ",
+  "deviceGuide": "设备使用指南",
+  "welcomeToDevice": "欢迎使用 {deviceName}",
+  "@welcomeToDevice": {
+    "description": "带有设备名称的欢迎消息",
+    "placeholders": {
+      "deviceName": {
+        "type": "String",
+        "example": "我的设备"
+      }
+    }
+  },
+  "firstTimeConnectionInstructions": "这是您首次连接此设备，请按照以下步骤进行操作：",
+  "waitForFirstDataPacket": "请等待设备发送第一个数据包",
+  "calibrateAfterDataReceived": "收到数据后，请进行去皮校准",
+  "weightDataMoreAccurate": "校准后，重量数据将更加准确",
+  "calibrationImportanceNote": "注意：去皮校准是确保重量数据准确性的重要步骤。",
+  "calibrateLater": "稍后校准",
+  "calibrateNow": "立即校准",
+  "confirm": "确认",
+  "calibrationTip": "提示：校准后，系统将自动从测量值中减去此校准值，得到准确的净重。",
+
   "calendar_page": "==================== 日历页面 ==================== ",
   "overview": "概览",
   "progressGoal": "进度 / 目标",

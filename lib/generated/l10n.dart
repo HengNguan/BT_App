@@ -550,6 +550,121 @@ class S {
     return Intl.message('Delete', name: 'delete', desc: '', args: []);
   }
 
+  /// `==================== Guide Dialog ==================== `
+  String get guide_dialog {
+    return Intl.message(
+      '==================== Guide Dialog ==================== ',
+      name: 'guide_dialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device Guide`
+  String get deviceGuide {
+    return Intl.message(
+      'Device Guide',
+      name: 'deviceGuide',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to {deviceName}`
+  String welcomeToDevice(String deviceName) {
+    return Intl.message(
+      'Welcome to $deviceName',
+      name: 'welcomeToDevice',
+      desc: 'Welcome message with device name',
+      args: [deviceName],
+    );
+  }
+
+  /// `This is your first time connecting to this device. Please follow these steps:`
+  String get firstTimeConnectionInstructions {
+    return Intl.message(
+      'This is your first time connecting to this device. Please follow these steps:',
+      name: 'firstTimeConnectionInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wait for the device to send the first data packet`
+  String get waitForFirstDataPacket {
+    return Intl.message(
+      'Wait for the device to send the first data packet',
+      name: 'waitForFirstDataPacket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After receiving data, perform tare calibration`
+  String get calibrateAfterDataReceived {
+    return Intl.message(
+      'After receiving data, perform tare calibration',
+      name: 'calibrateAfterDataReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After calibration, weight data will be more accurate`
+  String get weightDataMoreAccurate {
+    return Intl.message(
+      'After calibration, weight data will be more accurate',
+      name: 'weightDataMoreAccurate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note: Tare calibration is an important step to ensure weight data accuracy.`
+  String get calibrationImportanceNote {
+    return Intl.message(
+      'Note: Tare calibration is an important step to ensure weight data accuracy.',
+      name: 'calibrationImportanceNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calibrate Later`
+  String get calibrateLater {
+    return Intl.message(
+      'Calibrate Later',
+      name: 'calibrateLater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calibrate Now`
+  String get calibrateNow {
+    return Intl.message(
+      'Calibrate Now',
+      name: 'calibrateNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Okay`
+  String get confirm {
+    return Intl.message('Okay', name: 'confirm', desc: '', args: []);
+  }
+
+  /// `Tip: After calibration, the system will automatically subtract this calibration value from the measurement to get an accurate net weight.`
+  String get calibrationTip {
+    return Intl.message(
+      'Tip: After calibration, the system will automatically subtract this calibration value from the measurement to get an accurate net weight.',
+      name: 'calibrationTip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `==================== Calendar page ==================== `
   String get calendar_page {
     return Intl.message(

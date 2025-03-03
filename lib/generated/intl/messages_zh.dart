@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(languageCode) => "语言设置已保存：${languageCode}";
 
+  static String m7(deviceName) => "欢迎使用 ${deviceName}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "availableDevices": MessageLookupByLibrary.simpleMessage("可用设备"),
@@ -47,13 +49,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "calendar_page": MessageLookupByLibrary.simpleMessage(
       "==================== 日历页面 ==================== ",
     ),
+    "calibrateAfterDataReceived": MessageLookupByLibrary.simpleMessage(
+      "收到数据后，请进行去皮校准",
+    ),
+    "calibrateLater": MessageLookupByLibrary.simpleMessage("稍后校准"),
+    "calibrateNow": MessageLookupByLibrary.simpleMessage("立即校准"),
     "calibration": MessageLookupByLibrary.simpleMessage("校准"),
     "calibrationDeleted": MessageLookupByLibrary.simpleMessage("校准已删除"),
     "calibrationHistory": MessageLookupByLibrary.simpleMessage("校准历史"),
+    "calibrationImportanceNote": MessageLookupByLibrary.simpleMessage(
+      "注意：去皮校准是确保重量数据准确性的重要步骤。",
+    ),
     "calibrationSaved": MessageLookupByLibrary.simpleMessage("校准已成功保存"),
+    "calibrationTip": MessageLookupByLibrary.simpleMessage(
+      "提示：校准后，系统将自动从测量值中减去此校准值，得到准确的净重。",
+    ),
     "calibrationValueHint": MessageLookupByLibrary.simpleMessage("输入重量值"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
     "close": MessageLookupByLibrary.simpleMessage("关闭"),
+    "confirm": MessageLookupByLibrary.simpleMessage("确认"),
     "confirmDelete": MessageLookupByLibrary.simpleMessage("确认删除"),
     "confirmDeleteCalibration": MessageLookupByLibrary.simpleMessage(
       "您确定要删除此校准记录吗？",
@@ -67,15 +81,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== 默认页面 ==================== ",
     ),
     "delete": MessageLookupByLibrary.simpleMessage("删除"),
+    "deviceGuide": MessageLookupByLibrary.simpleMessage("设备使用指南"),
     "deviceId": MessageLookupByLibrary.simpleMessage("设备ID"),
     "deviceInfo": MessageLookupByLibrary.simpleMessage("设备信息"),
     "disconnect": MessageLookupByLibrary.simpleMessage("断开连接"),
     "disconnected": MessageLookupByLibrary.simpleMessage("已断开连接"),
     "drinkLog": MessageLookupByLibrary.simpleMessage("饮水记录"),
     "enterCalibrationValue": MessageLookupByLibrary.simpleMessage("输入校准值（克）："),
+    "firstTimeConnectionInstructions": MessageLookupByLibrary.simpleMessage(
+      "这是您首次连接此设备，请按照以下步骤进行操作：",
+    ),
     "getPrefsError": m0,
     "getPrefsTimeout": MessageLookupByLibrary.simpleMessage(
       "SharedPreferences 初始化超时",
+    ),
+    "guide_dialog": MessageLookupByLibrary.simpleMessage(
+      "==================== 引导对话框 ==================== ",
     ),
     "homeTabContent": MessageLookupByLibrary.simpleMessage("首页内容"),
     "home_page": MessageLookupByLibrary.simpleMessage(
@@ -120,5 +141,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "useCurrentValue": MessageLookupByLibrary.simpleMessage("使用当前值"),
     "value": MessageLookupByLibrary.simpleMessage("值"),
     "viewAll": MessageLookupByLibrary.simpleMessage("查看全部"),
+    "waitForFirstDataPacket": MessageLookupByLibrary.simpleMessage(
+      "请等待设备发送第一个数据包",
+    ),
+    "weightDataMoreAccurate": MessageLookupByLibrary.simpleMessage(
+      "校准后，重量数据将更加准确",
+    ),
+    "welcomeToDevice": m7,
   };
 }

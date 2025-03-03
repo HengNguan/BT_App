@@ -142,6 +142,28 @@
   "delete": "Delete",
 
 
+  "guide_dialog": "==================== Guide Dialog ==================== ",
+  "deviceGuide": "Device Guide",
+  "welcomeToDevice": "Welcome to {deviceName}",
+  "@welcomeToDevice": {
+    "description": "Welcome message with device name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String",
+        "example": "My Device"
+      }
+    }
+  },
+  "firstTimeConnectionInstructions": "This is your first time connecting to this device. Please follow these steps:",
+  "waitForFirstDataPacket": "Wait for the device to send the first data packet",
+  "calibrateAfterDataReceived": "After receiving data, perform tare calibration",
+  "weightDataMoreAccurate": "After calibration, weight data will be more accurate",
+  "calibrationImportanceNote": "Note: Tare calibration is an important step to ensure weight data accuracy.",
+  "calibrateLater": "Calibrate Later",
+  "calibrateNow": "Calibrate Now",
+  "confirm": "Okay",
+  "calibrationTip": "Tip: After calibration, the system will automatically subtract this calibration value from the measurement to get an accurate net weight.",
+
   "calendar_page": "==================== Calendar page ==================== ",
   "overview": "Overview",
   "progressGoal": "Progress / Goal",

@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(languageCode) => "Language setting saved: ${languageCode}";
 
+  static String m7(deviceName) => "Welcome to ${deviceName}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "availableDevices": MessageLookupByLibrary.simpleMessage("Available"),
@@ -54,6 +56,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "calendar_page": MessageLookupByLibrary.simpleMessage(
       "==================== Calendar page ==================== ",
     ),
+    "calibrateAfterDataReceived": MessageLookupByLibrary.simpleMessage(
+      "After receiving data, perform tare calibration",
+    ),
+    "calibrateLater": MessageLookupByLibrary.simpleMessage("Calibrate Later"),
+    "calibrateNow": MessageLookupByLibrary.simpleMessage("Calibrate Now"),
     "calibration": MessageLookupByLibrary.simpleMessage("Calibration"),
     "calibrationDeleted": MessageLookupByLibrary.simpleMessage(
       "Calibration deleted",
@@ -61,14 +68,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "calibrationHistory": MessageLookupByLibrary.simpleMessage(
       "Calibration History",
     ),
+    "calibrationImportanceNote": MessageLookupByLibrary.simpleMessage(
+      "Note: Tare calibration is an important step to ensure weight data accuracy.",
+    ),
     "calibrationSaved": MessageLookupByLibrary.simpleMessage(
       "Calibration saved successfully",
+    ),
+    "calibrationTip": MessageLookupByLibrary.simpleMessage(
+      "Tip: After calibration, the system will automatically subtract this calibration value from the measurement to get an accurate net weight.",
     ),
     "calibrationValueHint": MessageLookupByLibrary.simpleMessage(
       "Enter weight value",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
+    "confirm": MessageLookupByLibrary.simpleMessage("Okay"),
     "confirmDelete": MessageLookupByLibrary.simpleMessage("Confirm Delete"),
     "confirmDeleteCalibration": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to delete this calibration record?",
@@ -84,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== Default page ==================== ",
     ),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+    "deviceGuide": MessageLookupByLibrary.simpleMessage("Device Guide"),
     "deviceId": MessageLookupByLibrary.simpleMessage("ID"),
     "deviceInfo": MessageLookupByLibrary.simpleMessage("Device Info"),
     "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
@@ -92,9 +107,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterCalibrationValue": MessageLookupByLibrary.simpleMessage(
       "Enter calibration value (in grams):",
     ),
+    "firstTimeConnectionInstructions": MessageLookupByLibrary.simpleMessage(
+      "This is your first time connecting to this device. Please follow these steps:",
+    ),
     "getPrefsError": m0,
     "getPrefsTimeout": MessageLookupByLibrary.simpleMessage(
       "SharedPreferences initialization timeout",
+    ),
+    "guide_dialog": MessageLookupByLibrary.simpleMessage(
+      "==================== Guide Dialog ==================== ",
     ),
     "homeTabContent": MessageLookupByLibrary.simpleMessage("Home Tab Content"),
     "home_page": MessageLookupByLibrary.simpleMessage(
@@ -157,5 +178,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "value": MessageLookupByLibrary.simpleMessage("Value"),
     "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
+    "waitForFirstDataPacket": MessageLookupByLibrary.simpleMessage(
+      "Wait for the device to send the first data packet",
+    ),
+    "weightDataMoreAccurate": MessageLookupByLibrary.simpleMessage(
+      "After calibration, weight data will be more accurate",
+    ),
+    "welcomeToDevice": m7,
   };
 }

@@ -33,7 +33,14 @@ void main() async {
 
   if (!permissionsGranted) {
     // Handle the case where permissions are not granted
-    runApp(const PermissionDeniedApp());
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ],
+        child: const PermissionDeniedApp(),
+      ),
+    );
   } else {
     // Initialize Android Alarm Manager
     await AndroidAlarmManager.initialize();
