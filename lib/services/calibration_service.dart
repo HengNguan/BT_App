@@ -32,7 +32,7 @@ class CalibrationService {
       final calibrationDataJson = prefs.getString(_calibrationDataKey) ?? '{}';
       final Map<String, dynamic> calibrationData = json.decode(calibrationDataJson);
 
-      print('getCalibrationForDevice: $deviceId, Value: $calibrationData');
+      // print('getCalibrationForDevice: $deviceId, Value: $calibrationData');
 
       return calibrationData[deviceId];
     } catch (e) {

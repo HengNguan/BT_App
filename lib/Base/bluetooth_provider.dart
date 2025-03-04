@@ -122,7 +122,7 @@ class BluetoothProvider extends ChangeNotifier {
       // CalibrationValue
       double? calibrationValue = await _calibrationService.getCalibrationValue(deviceId);
 
-      print('ID: $deviceId, Value : $calibrationValue');
+      // print('ID: $deviceId, Value : $calibrationValue');
 
       // Calculate weight
       double rawWeight = ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0;
