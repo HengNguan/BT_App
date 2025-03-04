@@ -45,6 +45,14 @@ class _BluetoothHomePageState extends State<BluetoothHomePage> {
         _hasShownGuide = false;
       });
     }
+    
+    // 新增校准引导对话框状态监听
+    if (_bluetoothProvider.showCalibrationGuide && !_hasShownGuide) {
+      GuideDialog.showFirstTimeConnectionGuide(context, _bluetoothProvider);
+      setState(() {
+        _hasShownGuide = true;
+      });
+    }
   }
   @override
   Widget build(BuildContext context) {

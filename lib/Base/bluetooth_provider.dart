@@ -13,6 +13,15 @@ class BluetoothProvider extends ChangeNotifier {
   BluetoothDevice? _connectedDevice;
   final CalibrationService _calibrationService = CalibrationService();
 
+  // 校准引导对话框显示状态
+  bool _showCalibrationGuide = false;
+  bool get showCalibrationGuide => _showCalibrationGuide;
+
+  void resetCalibrationGuide() {
+    _showCalibrationGuide = false;
+    notifyListeners();
+  }
+
   // Getters
   List<ScanResult> get scanResults => _scanResults;
   bool get isScanning => _isScanning;
@@ -74,6 +83,16 @@ class BluetoothProvider extends ChangeNotifier {
       _connectionStatus = 'Connected to ${device.remoteId}';
       notifyListeners();
 
+      // 连接成功后检查校准状态
+      if (_connectedDevice != null) {
+        _calibrationService.isDeviceCalibrated(_connectedDevice!.remoteId.toString()).then((isCalibrated) {
+          if (!isCalibrated) {
+            _showCalibrationGuide = true;
+            notifyListeners();
+          }
+        });
+      }
+
       _listenForDataPackets(device);
     } catch (e) {
       _connectionStatus = 'Connection failed: $e';
@@ -102,7 +121,9 @@ class BluetoothProvider extends ChangeNotifier {
       String deviceId = _connectedDevice?.remoteId.toString() ?? '';
       // CalibrationValue
       double? calibrationValue = await _calibrationService.getCalibrationValue(deviceId);
-      
+
+      print('ID: $deviceId, Value : $calibrationValue');
+
       // Calculate weight
       double rawWeight = ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0;
       double adjustedWeight = calibrationValue != null ? rawWeight - calibrationValue : rawWeight;

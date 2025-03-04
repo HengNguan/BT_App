@@ -45,7 +45,10 @@ class GuideDialog {
         ),
         actions: [
           ElevatedButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+                  provider.resetCalibrationGuide();
+                  Navigator.pop(context);
+                },
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF2E7CFF),
             ),

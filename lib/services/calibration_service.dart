@@ -31,7 +31,9 @@ class CalibrationService {
       final prefs = await SharedPreferences.getInstance();
       final calibrationDataJson = prefs.getString(_calibrationDataKey) ?? '{}';
       final Map<String, dynamic> calibrationData = json.decode(calibrationDataJson);
-      
+
+      print('getCalibrationForDevice: $deviceId, Value: $calibrationData');
+
       return calibrationData[deviceId];
     } catch (e) {
       print('获取校准数据失败: $e');
