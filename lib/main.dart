@@ -10,12 +10,16 @@ import 'Constant/ConstantStyling.dart';
 import 'screens/bluetooth_home_page.dart';
 import 'generated/l10n.dart';
 import 'helpers/notification_helper.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   // Ensure that the Flutter framework is initialized before interacting with platform channels
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize timezone data
+  tz.initializeTimeZones();
 
   // Initialize NotificationHelper
   await NotificationHelper.initialize();
