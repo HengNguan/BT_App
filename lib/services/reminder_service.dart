@@ -1,19 +1,26 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/widgets.dart';
 import '../helpers/notification_helper.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 class ReminderService {
   // Start a reminder
   Future<void> startReminder() async {
     // Schedule the alarm
-    await AndroidAlarmManager.oneShot(
-      const Duration(seconds: 1), // Adjust the duration as needed
-      0, // Alarm ID
-      _alarmCallback,
-      exact: true,
-      wakeup: true,
-      rescheduleOnReboot: true,
-    );
+    if (Platform.isAndroid) {
+      await AndroidAlarmManager.oneShot(
+        const Duration(seconds: 1), // Adjust the duration as needed
+        0, // Alarm ID
+        _alarmCallback,
+        exact: true,
+        wakeup: true,
+        rescheduleOnReboot: true,
+      );
+    }
+    else if (Platform.isIOS) {
+      // TODO iOS version
+    }
   }
 
   // Alarm callback function

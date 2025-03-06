@@ -8,11 +8,12 @@ plugins {
 android {
     namespace = "com.example.untitled2"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -24,10 +25,20 @@ android {
         applicationId = "com.example.untitled2"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        //minSdk = flutter.minSdkVersion
+        minSdkVersion 26 
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        multiDexEnabled true 
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true // Enable core library desugaring
     }
 
     buildTypes {
@@ -37,6 +48,12 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+}
+
+dependencies {
+    implementation 'com.android.tools:desugar_jdk_libs:2.0.1' // Add this line
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3' 
+    // other dependencies...
 }
 
 flutter {

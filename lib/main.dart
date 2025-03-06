@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ import 'screens/bluetooth_home_page.dart';
 import 'generated/l10n.dart';
 import 'helpers/notification_helper.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   // Ensure that the Flutter framework is initialized before interacting with platform channels
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,16 +20,21 @@ void main() async {
   // Initialize NotificationHelper
   await NotificationHelper.initialize();
 
-  // Request necessary permissions on first launch
-  bool permissionsGranted = await PermissionUtility.requestPermissions();
+  // Request necessary permissions on first launch\
+  //bool permissionsGranted = await PermissionUtility.requestPermissions();
+  bool permissionsGranted = true;
 
   if (!permissionsGranted) {
     // Handle the case where permissions are not granted
     runApp(const PermissionDeniedApp());
   } else {
     // Initialize Android Alarm Manager
-    await AndroidAlarmManager.initialize();
-
+    if (Platform.isAndroid) {
+      await AndroidAlarmManager.initialize();
+    }
+    else if (Platform.isIOS) {
+    // TODO iOS version
+    }
     // Run the main app
     runApp(
       ChangeNotifierProvider(
@@ -44,7 +52,9 @@ class BluetoothApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'Bluetooth Water Bottle',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
