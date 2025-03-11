@@ -6,6 +6,8 @@ import '../widgets/language_switch_button.dart';
 import '../widgets/calibration_widget.dart';
 import '../widgets/guide_dialog.dart';
 import '../generated/l10n.dart';
+import '../services/auth_service.dart';
+import 'login_page.dart';
 
 class BluetoothHomePage extends StatefulWidget {
   const BluetoothHomePage({Key? key}) : super(key: key);
@@ -20,6 +22,17 @@ class _BluetoothHomePageState extends State<BluetoothHomePage> {
   @override
   void initState() {
     super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final user = await AuthService.getCurrentUser();
+    if (user == null && mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginPage()),
+        (route) => false,
+      );
+    }
   }
 
   @override

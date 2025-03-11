@@ -171,5 +171,45 @@
   "drinkLog": "Drink Log",
   "viewAll": "View All",
   "today": "Today",
-  "noDataAvailable": "No data available"
+  "noDataAvailable": "No data available",
+
+  "login_page": "==================== Login page ==================== ",
+  "login": "Login",
+  "username": "Username",
+  "password": "Password",
+  "loginButton": "Login",
+  "loginFailed": "Login failed. Please check your username and password.",
+  "welcomeUser": "Welcome, {displayName}!",
+  "@welcomeUser": {
+    "description": "Welcome message with user's display name",
+    "placeholders": {
+      "displayName": {
+        "type": "String",
+        "example": "User 1"
+      }
+    }
+  },
+  "logout": "Logout",
+  "deviceBound": "Device bound to your account",
+  "deviceNotBound": "No device bound to your account",
+  "bindDevice": "Bind Device",
+  "unbindDevice": "Unbind Device",
+  "deviceAlreadyBound": "This device is already bound to another user",
+  "bindDeviceSuccess": "Device successfully bound to your account",
+  "bindDeviceFailed": "Failed to bind device to your account",
+  "unbindDeviceSuccess": "Device successfully unbound from your account",
+  "unbindDeviceFailed": "Failed to unbind device from your account",
+  "confirmUnbindDevice": "Are you sure you want to unbind this device?",
+  "confirmDeleteCalibrationData": "Do you also want to delete the calibration data for this device?",
+  "multiDeviceBindingTitle": "Allow Multiple Device Binding",
+  "multiDeviceBindingSubtitle": "When enabled, one account can bind multiple devices",
+  "multiDeviceCalibrationTitle": "Allow Multiple Device Calibration",
+  "multiDeviceCalibrationSubtitle": "When enabled, one account can calibrate multiple devices",
+  "settingsUpdated": "Settings updated successfully",
+  "settings": "Settings",
+  "notLoggedIn": "Not logged in",
+
+  "home": "Home",
+  "calendar": "Calendar",
+  "profile": "Me"
 }

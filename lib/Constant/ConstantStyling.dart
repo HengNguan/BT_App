@@ -87,4 +87,14 @@ class AppTextStyles {
       fontFamily: ConstantString.FONT_ADDRESS_SANS_PRO,
       fontWeight: ConstantString.FONT_WEIGHT_REGULAR,
       fontSize: 16);
+
+  static const TextStyle medium18 = TextStyle(
+      fontFamily: ConstantString.FONT_ADDRESS_SANS_PRO,
+      fontWeight: FontWeight.w500,
+      fontSize: 18);
+
+  static const TextStyle bold24 = TextStyle(
+      fontFamily: ConstantString.FONT_ADDRESS_SANS_PRO,
+      fontWeight: ConstantString.FONT_WEIGHT_BOLD,
+      fontSize: 24);
 }

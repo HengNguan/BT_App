@@ -154,7 +154,7 @@ class BluetoothProvider extends ChangeNotifier {
     }
   }
 
-  void disconnectDevice() async {
+  Future<void> disconnectDevice() async {
     if (_connectedDevice != null) {
       await _connectedDevice!.disconnect();
       _connectedDevice = null;

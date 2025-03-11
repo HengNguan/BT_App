@@ -724,6 +724,246 @@ class S {
       args: [],
     );
   }
+
+  /// `==================== Login page ==================== `
+  String get login_page {
+    return Intl.message(
+      '==================== Login page ==================== ',
+      name: 'login_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message('Login', name: 'login', desc: '', args: []);
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message('Username', name: 'username', desc: '', args: []);
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
+
+  /// `Login`
+  String get loginButton {
+    return Intl.message('Login', name: 'loginButton', desc: '', args: []);
+  }
+
+  /// `Login failed. Please check your username and password.`
+  String get loginFailed {
+    return Intl.message(
+      'Login failed. Please check your username and password.',
+      name: 'loginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome, {displayName}!`
+  String welcomeUser(String displayName) {
+    return Intl.message(
+      'Welcome, $displayName!',
+      name: 'welcomeUser',
+      desc: 'Welcome message with user\'s display name',
+      args: [displayName],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message('Logout', name: 'logout', desc: '', args: []);
+  }
+
+  /// `Device bound to your account`
+  String get deviceBound {
+    return Intl.message(
+      'Device bound to your account',
+      name: 'deviceBound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No device bound to your account`
+  String get deviceNotBound {
+    return Intl.message(
+      'No device bound to your account',
+      name: 'deviceNotBound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bind Device`
+  String get bindDevice {
+    return Intl.message('Bind Device', name: 'bindDevice', desc: '', args: []);
+  }
+
+  /// `Unbind Device`
+  String get unbindDevice {
+    return Intl.message(
+      'Unbind Device',
+      name: 'unbindDevice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This device is already bound to another user`
+  String get deviceAlreadyBound {
+    return Intl.message(
+      'This device is already bound to another user',
+      name: 'deviceAlreadyBound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device successfully bound to your account`
+  String get bindDeviceSuccess {
+    return Intl.message(
+      'Device successfully bound to your account',
+      name: 'bindDeviceSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to bind device to your account`
+  String get bindDeviceFailed {
+    return Intl.message(
+      'Failed to bind device to your account',
+      name: 'bindDeviceFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device successfully unbound from your account`
+  String get unbindDeviceSuccess {
+    return Intl.message(
+      'Device successfully unbound from your account',
+      name: 'unbindDeviceSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to unbind device from your account`
+  String get unbindDeviceFailed {
+    return Intl.message(
+      'Failed to unbind device from your account',
+      name: 'unbindDeviceFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to unbind this device?`
+  String get confirmUnbindDevice {
+    return Intl.message(
+      'Are you sure you want to unbind this device?',
+      name: 'confirmUnbindDevice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you also want to delete the calibration data for this device?`
+  String get confirmDeleteCalibrationData {
+    return Intl.message(
+      'Do you also want to delete the calibration data for this device?',
+      name: 'confirmDeleteCalibrationData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allow Multiple Device Binding`
+  String get multiDeviceBindingTitle {
+    return Intl.message(
+      'Allow Multiple Device Binding',
+      name: 'multiDeviceBindingTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `When enabled, one account can bind multiple devices`
+  String get multiDeviceBindingSubtitle {
+    return Intl.message(
+      'When enabled, one account can bind multiple devices',
+      name: 'multiDeviceBindingSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allow Multiple Device Calibration`
+  String get multiDeviceCalibrationTitle {
+    return Intl.message(
+      'Allow Multiple Device Calibration',
+      name: 'multiDeviceCalibrationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `When enabled, one account can calibrate multiple devices`
+  String get multiDeviceCalibrationSubtitle {
+    return Intl.message(
+      'When enabled, one account can calibrate multiple devices',
+      name: 'multiDeviceCalibrationSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings updated successfully`
+  String get settingsUpdated {
+    return Intl.message(
+      'Settings updated successfully',
+      name: 'settingsUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Not logged in`
+  String get notLoggedIn {
+    return Intl.message(
+      'Not logged in',
+      name: 'notLoggedIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `Calendar`
+  String get calendar {
+    return Intl.message('Calendar', name: 'calendar', desc: '', args: []);
+  }
+
+  /// `Me`
+  String get profile {
+    return Intl.message('Me', name: 'profile', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

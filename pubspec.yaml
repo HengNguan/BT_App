@@ -81,6 +81,7 @@ flutter:
   assets:
     - lib/l10n/
     - assets/images/
+    - assets/icon/
 
   fonts:
     - family: SF PRO Display

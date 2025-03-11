@@ -161,5 +161,45 @@
   "drinkLog": "饮水记录",
   "viewAll": "查看全部",
   "today": "今天",
-  "noDataAvailable": "没有更多的数据"
+  "noDataAvailable": "没有更多的数据",
+
+  "login_page": "==================== 登录页面 ==================== ",
+  "login": "登录",
+  "username": "用户名",
+  "password": "密码",
+  "loginButton": "登录",
+  "loginFailed": "登录失败。请检查您的用户名和密码。",
+  "welcomeUser": "欢迎，{displayName}！",
+  "@welcomeUser": {
+    "description": "带有用户显示名称的欢迎消息",
+    "placeholders": {
+      "displayName": {
+        "type": "String",
+        "example": "用户1"
+      }
+    }
+  },
+  "logout": "退出登录",
+  "deviceBound": "设备已绑定到您的账户",
+  "deviceNotBound": "您的账户未绑定任何设备",
+  "bindDevice": "绑定设备",
+  "unbindDevice": "解绑设备",
+  "deviceAlreadyBound": "此设备已被其他用户绑定",
+  "bindDeviceSuccess": "设备已成功绑定到您的账户",
+  "bindDeviceFailed": "绑定设备到您的账户失败",
+  "unbindDeviceSuccess": "设备已成功从您的账户解绑",
+  "unbindDeviceFailed": "从您的账户解绑设备失败",
+  "confirmUnbindDevice": "您确定要解绑此设备吗？",
+  "confirmDeleteCalibrationData": "您是否同时要删除此设备的校准数据？",
+  "multiDeviceBindingTitle": "允许多设备绑定",
+  "multiDeviceBindingSubtitle": "开启后一个账号可以绑定多个设备",
+  "multiDeviceCalibrationTitle": "允许多设备校准",
+  "multiDeviceCalibrationSubtitle": "开启后一个账号可以校准多个设备",
+  "settingsUpdated": "设置已成功更新",
+  "settings": "设置",
+  "notLoggedIn": "未登录",
+
+  "home": "主页",
+  "calendar": "历史",
+  "profile": "我"
 }

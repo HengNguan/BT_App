@@ -39,10 +39,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(deviceName) => "Welcome to ${deviceName}";
 
+  static String m8(displayName) => "Welcome, ${displayName}!";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "availableDevices": MessageLookupByLibrary.simpleMessage("Available"),
     "battery": MessageLookupByLibrary.simpleMessage("Battery"),
+    "bindDevice": MessageLookupByLibrary.simpleMessage("Bind Device"),
+    "bindDeviceFailed": MessageLookupByLibrary.simpleMessage(
+      "Failed to bind device to your account",
+    ),
+    "bindDeviceSuccess": MessageLookupByLibrary.simpleMessage(
+      "Device successfully bound to your account",
+    ),
     "bluetoothIsOff": MessageLookupByLibrary.simpleMessage(
       "Bluetooth is OFF or unavailable",
     ),
@@ -53,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bluetooth_home_page": MessageLookupByLibrary.simpleMessage(
       "==================== Bluetooth Home page ==================== ",
     ),
+    "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
     "calendar_page": MessageLookupByLibrary.simpleMessage(
       "==================== Calendar page ==================== ",
     ),
@@ -87,6 +97,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmDeleteCalibration": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to delete this calibration record?",
     ),
+    "confirmDeleteCalibrationData": MessageLookupByLibrary.simpleMessage(
+      "Do you also want to delete the calibration data for this device?",
+    ),
+    "confirmUnbindDevice": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to unbind this device?",
+    ),
     "connect": MessageLookupByLibrary.simpleMessage("Connect"),
     "connectedDevice": MessageLookupByLibrary.simpleMessage("Connected Device"),
     "connecting": MessageLookupByLibrary.simpleMessage("Connecting..."),
@@ -98,9 +114,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== Default page ==================== ",
     ),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+    "deviceAlreadyBound": MessageLookupByLibrary.simpleMessage(
+      "This device is already bound to another user",
+    ),
+    "deviceBound": MessageLookupByLibrary.simpleMessage(
+      "Device bound to your account",
+    ),
     "deviceGuide": MessageLookupByLibrary.simpleMessage("Device Guide"),
     "deviceId": MessageLookupByLibrary.simpleMessage("ID"),
     "deviceInfo": MessageLookupByLibrary.simpleMessage("Device Info"),
+    "deviceNotBound": MessageLookupByLibrary.simpleMessage(
+      "No device bound to your account",
+    ),
     "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
     "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
     "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
@@ -117,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "guide_dialog": MessageLookupByLibrary.simpleMessage(
       "==================== Guide Dialog ==================== ",
     ),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "homeTabContent": MessageLookupByLibrary.simpleMessage("Home Tab Content"),
     "home_page": MessageLookupByLibrary.simpleMessage(
       "==================== Home page ==================== ",
@@ -127,6 +153,27 @@ class MessageLookup extends MessageLookupByLibrary {
     "loadLanguageMaxRetries": m1,
     "loadLanguageRetryFailed": m2,
     "loadLanguageSuccess": m3,
+    "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "loginButton": MessageLookupByLibrary.simpleMessage("Login"),
+    "loginFailed": MessageLookupByLibrary.simpleMessage(
+      "Login failed. Please check your username and password.",
+    ),
+    "login_page": MessageLookupByLibrary.simpleMessage(
+      "==================== Login page ==================== ",
+    ),
+    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "multiDeviceBindingSubtitle": MessageLookupByLibrary.simpleMessage(
+      "When enabled, one account can bind multiple devices",
+    ),
+    "multiDeviceBindingTitle": MessageLookupByLibrary.simpleMessage(
+      "Allow Multiple Device Binding",
+    ),
+    "multiDeviceCalibrationSubtitle": MessageLookupByLibrary.simpleMessage(
+      "When enabled, one account can calibrate multiple devices",
+    ),
+    "multiDeviceCalibrationTitle": MessageLookupByLibrary.simpleMessage(
+      "Allow Multiple Device Calibration",
+    ),
     "nextReminder": m4,
     "noCalibrationHistory": MessageLookupByLibrary.simpleMessage(
       "No calibration history found",
@@ -134,11 +181,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "noDataAvailable": MessageLookupByLibrary.simpleMessage(
       "No data available",
     ),
+    "notLoggedIn": MessageLookupByLibrary.simpleMessage("Not logged in"),
     "notSupportThisDevice": MessageLookupByLibrary.simpleMessage(
       "Bluetooth not supported by this device",
     ),
     "on": MessageLookupByLibrary.simpleMessage("On"),
     "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+    "password": MessageLookupByLibrary.simpleMessage("Password"),
     "percentGoal": MessageLookupByLibrary.simpleMessage("% Of Goal Achieve"),
     "permissionDenied": MessageLookupByLibrary.simpleMessage(
       "Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.",
@@ -150,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "==================== Permission Denied page ==================== ",
     ),
     "power": MessageLookupByLibrary.simpleMessage("Power"),
+    "profile": MessageLookupByLibrary.simpleMessage("Me"),
     "progressGoal": MessageLookupByLibrary.simpleMessage("Progress / Goal"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "saveLanguageError": m5,
@@ -157,6 +207,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "scanForDevices": MessageLookupByLibrary.simpleMessage("Scan for Devices"),
     "scanning": MessageLookupByLibrary.simpleMessage("Scanning..."),
     "serial": MessageLookupByLibrary.simpleMessage("Serial"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "settingsUpdated": MessageLookupByLibrary.simpleMessage(
+      "Settings updated successfully",
+    ),
     "stayHydrated": MessageLookupByLibrary.simpleMessage(
       "Stay hydrated by drinking water!",
     ),
@@ -172,10 +226,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please turn on Bluetooth",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Type"),
+    "unbindDevice": MessageLookupByLibrary.simpleMessage("Unbind Device"),
+    "unbindDeviceFailed": MessageLookupByLibrary.simpleMessage(
+      "Failed to unbind device from your account",
+    ),
+    "unbindDeviceSuccess": MessageLookupByLibrary.simpleMessage(
+      "Device successfully unbound from your account",
+    ),
     "unknownDevice": MessageLookupByLibrary.simpleMessage("Unknown Device"),
     "useCurrentValue": MessageLookupByLibrary.simpleMessage(
       "Use Current Value",
     ),
+    "username": MessageLookupByLibrary.simpleMessage("Username"),
     "value": MessageLookupByLibrary.simpleMessage("Value"),
     "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
     "waitForFirstDataPacket": MessageLookupByLibrary.simpleMessage(
@@ -185,5 +247,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "After calibration, weight data will be more accurate",
     ),
     "welcomeToDevice": m7,
+    "welcomeUser": m8,
   };
 }
