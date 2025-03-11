@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,13 +11,20 @@ import 'screens/bluetooth_home_page.dart';
 import 'screens/login_page.dart';
 import 'generated/l10n.dart';
 import 'helpers/notification_helper.dart';
+
 import 'providers/language_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'services/auth_service.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
 void main() async {
   // 确保Flutter框架在与平台通道交互之前已初始化
   WidgetsFlutterBinding.ensureInitialized();
+
 
   // 预热 SharedPreferences
   try {
@@ -27,11 +35,16 @@ void main() async {
     // 继续执行，LanguageProvider 将处理重试
   }
 
+  // Initialize timezone data
+  tz.initializeTimeZones();
+
+
   // Initialize NotificationHelper
   await NotificationHelper.initialize();
 
-  // Request necessary permissions on first launch
-  bool permissionsGranted = await PermissionUtility.requestPermissions();
+  // Request necessary permissions on first launch\
+  //bool permissionsGranted = await PermissionUtility.requestPermissions();
+  bool permissionsGranted = true;
 
   if (!permissionsGranted) {
     // Handle the case where permissions are not granted
@@ -45,8 +58,12 @@ void main() async {
     );
   } else {
     // Initialize Android Alarm Manager
-    await AndroidAlarmManager.initialize();
-
+    if (Platform.isAndroid) {
+      await AndroidAlarmManager.initialize();
+    }
+    else if (Platform.isIOS) {
+    // TODO iOS version
+    }
     // Run the main app
     runApp(
       MultiProvider(
@@ -65,6 +82,7 @@ class BluetoothApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<LanguageProvider>(
       builder: (context, languageProvider, child) {
         return MaterialApp(
@@ -202,32 +220,4 @@ class PermissionDeniedApp extends StatelessWidget {
   }
 }
 
-// class HomeScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Home Screen'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.pushNamed(context, '/default');
-//               },
-//               child: Text('Go to User UI'),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.pushNamed(context, '/debug');
-//               },
-//               child: Text('Go to Debug UI'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+

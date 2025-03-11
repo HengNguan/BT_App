@@ -3,8 +3,13 @@ import '../generated/l10n.dart';
 import '../services/auth_service.dart';
 import 'bluetooth_home_page.dart';
 import 'calendar_page.dart';
+
 import 'login_page.dart';
 import 'profile_page.dart';
+
+import 'default_page.dart';
+import '../helpers/notification_helper.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -124,6 +129,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Center(
         child: widgetOptions.elementAt(_selectedIndex),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await NotificationHelper.showNotification(
+            'Test Notification',
+            'If you see this, notifications are working on iOS!'
+          );
+        },
+        child: const Icon(Icons.notification_add),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
