@@ -1,6 +1,73 @@
 {
   "@@locale": "en",
 
+  "language_provider": "==================== Language Provider ==================== ",
+  "loadLanguageSuccess": "Successfully loaded language setting: {languageCode}",
+  "@loadLanguageSuccess": {
+    "description": "Message shown when language setting is successfully loaded",
+    "placeholders": {
+      "languageCode": {
+        "type": "String",
+        "example": "en"
+      }
+    }
+  },
+  "loadLanguageRetryFailed": "Language setting load attempt {attempt} failed: {error}",
+  "@loadLanguageRetryFailed": {
+    "description": "Message shown when a language setting load attempt fails",
+    "placeholders": {
+      "attempt": {
+        "type": "int",
+        "example": "1"
+      },
+      "error": {
+        "type": "String",
+        "example": "timeout"
+      }
+    }
+  },
+  "loadLanguageMaxRetries": "Unable to load language settings after {maxRetries} attempts, using default language",
+  "@loadLanguageMaxRetries": {
+    "description": "Message shown when maximum retry attempts are reached",
+    "placeholders": {
+      "maxRetries": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "getPrefsTimeout": "SharedPreferences initialization timeout",
+  "getPrefsError": "Failed to get SharedPreferences: {error}",
+  "@getPrefsError": {
+    "description": "Message shown when SharedPreferences access fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "error message"
+      }
+    }
+  },
+  "saveLanguageSuccess": "Language setting saved: {languageCode}",
+  "@saveLanguageSuccess": {
+    "description": "Message shown when language setting is successfully saved",
+    "placeholders": {
+      "languageCode": {
+        "type": "String",
+        "example": "en"
+      }
+    }
+  },
+  "saveLanguageError": "Failed to save language setting: {error}",
+  "@saveLanguageError": {
+    "description": "Message shown when saving language setting fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "error message"
+      }
+    }
+  },
+
   "permission_denied_page": "==================== Permission Denied page ==================== ",
   "permissionNeeded": "Permissions Needed",
   "permissionDenied": "Oops! It looks like some necessary permissions are missing. Please enable them in settings to continue using the app.",
@@ -27,11 +94,75 @@
   "bluetoothIsOff": "Bluetooth is OFF or unavailable",
   "turnOnBluetooth": "Please turn on Bluetooth",
   "connecting": "Connecting...",
-  "successfulConnect": "Successful Connect",
+  "successfulConnect": "Successfully Connected",
   "disconnected": "Disconnected",
   "bluetoothScanner": "Bluetooth Scanner",
   "dataPacketReceived": "Data Packets Received:",
-  "parsedData": "Parsed Data",
+  "calibration": "Calibration",
+  "calibrationHistory": "Calibration History",
+  "enterCalibrationValue": "Enter calibration value (in grams):",
+  "calibrationValueHint": "Enter weight value",
+  "useCurrentValue": "Use Current Value",
+  "save": "Save",
+  "cancel": "Cancel",
+  "close": "Close",
+  "calibrationSaved": "Calibration saved successfully",
+  "calibrationDeleted": "Calibration deleted",
+  "noCalibrationHistory": "No calibration history found",
+  "value": "Value",
+  "date": "Date",
+  "scanning": "Scanning...",
+  "scanForDevices": "Scan for Devices",
+  "unknownDevice": "Unknown Device",
+  "deviceId": "Device ID",
+  "connect": "Connect",
+  "disconnect": "Disconnect",
+  "battery": "Battery",
+  "type": "Type",
+  "serial": "Serial",
+  "power": "Power",
+  "on": "ON",
+  "timeToDrinkWater": "Time to Drink Water",
+  "stayHydrated": "Stay Hydrated!",
+  "deviceId": "ID",
+  "connect": "Connect",
+  "disconnect": "Disconnect",
+  "timeToDrinkWater": "Time to drink water • now",
+  "stayHydrated": "Stay hydrated by drinking water!",
+  "battery": "Battery",
+  "type": "Type",
+  "serial": "Serial",
+  "power": "Power",
+  "on": "On",
+  "availableDevices": "Available",
+  "connectedDevice": "Connected Device",
+  "deviceInfo": "Device Info",
+  "confirmDelete": "Confirm Delete",
+  "confirmDeleteCalibration": "Are you sure you want to delete this calibration record?",
+  "delete": "Delete",
+
+
+  "guide_dialog": "==================== Guide Dialog ==================== ",
+  "deviceGuide": "Device Guide",
+  "welcomeToDevice": "Welcome to {deviceName}",
+  "@welcomeToDevice": {
+    "description": "Welcome message with device name",
+    "placeholders": {
+      "deviceName": {
+        "type": "String",
+        "example": "My Device"
+      }
+    }
+  },
+  "firstTimeConnectionInstructions": "This is your first time connecting to this device. Please follow these steps:",
+  "waitForFirstDataPacket": "Wait for the device to send the first data packet",
+  "calibrateAfterDataReceived": "After receiving data, perform tare calibration",
+  "weightDataMoreAccurate": "After calibration, weight data will be more accurate",
+  "calibrationImportanceNote": "Note: Tare calibration is an important step to ensure weight data accuracy.",
+  "calibrateLater": "Calibrate Later",
+  "calibrateNow": "Calibrate Now",
+  "confirm": "Okay",
+  "calibrationTip": "Tip: After calibration, the system will automatically subtract this calibration value from the measurement to get an accurate net weight.",
 
   "calendar_page": "==================== Calendar page ==================== ",
   "overview": "Overview",
@@ -41,4 +172,44 @@
   "viewAll": "View All",
   "today": "Today",
   "noDataAvailable": "No data available",
+
+  "login_page": "==================== Login page ==================== ",
+  "login": "Login",
+  "username": "Username",
+  "password": "Password",
+  "loginButton": "Login",
+  "loginFailed": "Login failed. Please check your username and password.",
+  "welcomeUser": "Welcome, {displayName}!",
+  "@welcomeUser": {
+    "description": "Welcome message with user's display name",
+    "placeholders": {
+      "displayName": {
+        "type": "String",
+        "example": "User 1"
+      }
+    }
+  },
+  "logout": "Logout",
+  "deviceBound": "Device bound to your account",
+  "deviceNotBound": "No device bound to your account",
+  "bindDevice": "Bind Device",
+  "unbindDevice": "Unbind Device",
+  "deviceAlreadyBound": "This device is already bound to another user",
+  "bindDeviceSuccess": "Device successfully bound to your account",
+  "bindDeviceFailed": "Failed to bind device to your account",
+  "unbindDeviceSuccess": "Device successfully unbound from your account",
+  "unbindDeviceFailed": "Failed to unbind device from your account",
+  "confirmUnbindDevice": "Are you sure you want to unbind this device?",
+  "confirmDeleteCalibrationData": "Do you also want to delete the calibration data for this device?",
+  "multiDeviceBindingTitle": "Allow Multiple Device Binding",
+  "multiDeviceBindingSubtitle": "When enabled, one account can bind multiple devices",
+  "multiDeviceCalibrationTitle": "Allow Multiple Device Calibration",
+  "multiDeviceCalibrationSubtitle": "When enabled, one account can calibrate multiple devices",
+  "settingsUpdated": "Settings updated successfully",
+  "settings": "Settings",
+  "notLoggedIn": "Not logged in",
+
+  "home": "Home",
+  "calendar": "Calendar",
+  "profile": "Me"
 }

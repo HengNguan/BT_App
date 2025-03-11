@@ -1,11 +1,16 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/widgets.dart';
 import '../helpers/notification_helper.dart';
+
+import 'dart:ui';
+
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+
+@pragma('vm:entry-point')
 class ReminderService {
   // Start a reminder
   Future<void> startReminder() async {
@@ -45,6 +50,7 @@ class ReminderService {
   }
 
   // Alarm callback function
+  @pragma('vm:entry-point')
   static Future<void> _alarmCallback() async {
     // Initialize Flutter bindings
     WidgetsFlutterBinding.ensureInitialized();
