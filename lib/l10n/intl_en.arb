@@ -100,7 +100,7 @@
   "dataPacketReceived": "Data Packets Received:",
   "calibration": "Calibration",
   "calibrationHistory": "Calibration History",
-  "enterCalibrationValue": "Enter calibration value (in grams):",
+  "enterCalibrationValue": "Use this value to calibrate the device:",
   "calibrationValueHint": "Enter weight value",
   "useCurrentValue": "Use Current Value",
   "save": "Save",
@@ -132,6 +132,7 @@
   "battery": "Battery",
   "type": "Type",
   "serial": "Serial",
+  "unit": "ml",
   "power": "Power",
   "on": "On",
   "availableDevices": "Available",
@@ -140,6 +141,8 @@
   "confirmDelete": "Confirm Delete",
   "confirmDeleteCalibration": "Are you sure you want to delete this calibration record?",
   "delete": "Delete",
+  "yes": "Yes",
+  "no": "No",
 
 
   "guide_dialog": "==================== Guide Dialog ==================== ",

@@ -100,7 +100,7 @@
   "dataPacketReceived": "已接收到数据包：",
   "calibration": "校准",
   "calibrationHistory": "校准历史",
-  "enterCalibrationValue": "输入校准值（克）：",
+  "enterCalibrationValue": "使用此值校准设备：",
   "calibrationValueHint": "输入重量值",
   "useCurrentValue": "使用当前值",
   "save": "保存",
@@ -122,6 +122,7 @@
   "serial": "序列号",
   "power": "电源",
   "on": "开启",
+  "unit": "毫升",
   "timeToDrinkWater": "该喝水了",
   "stayHydrated": "保持水分补充！",
   "availableDevices": "可用设备",
@@ -130,6 +131,8 @@
   "confirmDelete": "确认删除",
   "confirmDeleteCalibration": "您确定要删除此校准记录吗？",
   "delete": "删除",
+  "yes": "确定",
+  "no": "取消",
 
 
   "guide_dialog": "==================== 引导对话框 ==================== ",

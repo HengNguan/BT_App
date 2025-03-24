@@ -130,15 +130,15 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: widgetOptions.elementAt(_selectedIndex),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await NotificationHelper.showNotification(
-            'Test Notification',
-            'If you see this, notifications are working on iOS!'
-          );
-        },
-        child: const Icon(Icons.notification_add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     await NotificationHelper.showNotification(
+      //       'Test Notification',
+      //       'If you see this, notifications are working on iOS!'
+      //     );
+      //   },
+      //   child: const Icon(Icons.notification_add),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[

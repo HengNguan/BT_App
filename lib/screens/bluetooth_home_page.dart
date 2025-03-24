@@ -706,7 +706,7 @@ class _WaterDropContainerState extends State<WaterDropContainer> with TickerProv
                         ),
                       ),
                       Text(
-                        'g',
+                          S.of(context).unit,
                         style: TextStyle(
                           fontSize: 24,
                           color: Color(0xFF2E7CFF),

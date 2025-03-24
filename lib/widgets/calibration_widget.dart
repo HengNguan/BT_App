@@ -48,6 +48,8 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
     final hasReceivedData = provider.parsedDataPackets.isNotEmpty;
     final latestWeight = hasReceivedData ? provider.parsedDataPackets.last['Weight'] : 0.0;
 
+    _calibrationValueController.text = latestWeight.toString();
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -62,24 +64,17 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: S.of(context).calibrationValueHint,
-                suffixText: 'g',
+                suffixText: S.of(context).unit,
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 15),
-            if (hasReceivedData)
-              OutlinedButton(
-                onPressed: () {
-                  _calibrationValueController.text = latestWeight.toString();
-                },
-                child: Text(S.of(context).useCurrentValue),
-              ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(S.of(context).cancel),
+            child: Text(S.of(context).no),
           ),
           ElevatedButton(
             onPressed: hasReceivedData
@@ -106,7 +101,7 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF2E7CFF),
             ),
-            child: Text(S.of(context).save),
+            child: Text(S.of(context).yes),
           ),
         ],
       ),
@@ -199,7 +194,7 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
                                       SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
-                                          '${S.of(context).value}: $value g',
+                                          '${S.of(context).value}: $value ${S.of(context).unit}',
                                           style: TextStyle(fontSize: 12, color: Colors.black87),
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -248,18 +243,18 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
                                                   Navigator.pop(context);
                                                   await _calibrationService.deleteCalibration(deviceId);
                                                   _loadCalibrationHistory();
-                                                  Navigator.pop(context);
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(S.of(context).calibrationDeleted),
-                                                      backgroundColor: Colors.red,
-                                                      behavior: SnackBarBehavior.floating,
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(10),
-                                                      ),
-                                                      action: SnackBarAction(
-                                                        label: S.of(context).close,
-                                                        textColor: Colors.white,
+                                                    Navigator.pop(context);
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(S.of(context).calibrationDeleted),
+                                                        backgroundColor: Colors.red,
+                                                        behavior: SnackBarBehavior.floating,
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(10),
+                                                        ),
+                                                        action: SnackBarAction(
+                                                          label: S.of(context).close,
+                                                          textColor: Colors.white,
                                                         onPressed: () {},
                                                       ),
                                                     ),
