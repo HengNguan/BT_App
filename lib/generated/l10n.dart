@@ -340,6 +340,16 @@ class S {
     );
   }
 
+  /// `Do you want to calibrate your device?`
+  String get doCalibration {
+    return Intl.message(
+      'Do you want to calibrate your device?',
+      name: 'doCalibration',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter weight value`
   String get calibrationValueHint {
     return Intl.message(

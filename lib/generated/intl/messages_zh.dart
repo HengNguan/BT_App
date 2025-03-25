@@ -94,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deviceNotBound": MessageLookupByLibrary.simpleMessage("您的账户未绑定任何设备"),
         "disconnect": MessageLookupByLibrary.simpleMessage("断开连接"),
         "disconnected": MessageLookupByLibrary.simpleMessage("已断开连接"),
+        "doCalibration": MessageLookupByLibrary.simpleMessage("是否校准设备?"),
         "drinkLog": MessageLookupByLibrary.simpleMessage("饮水记录"),
         "enterCalibrationValue":
             MessageLookupByLibrary.simpleMessage("使用此值校准设备："),

@@ -57,18 +57,7 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(S.of(context).enterCalibrationValue),
-            SizedBox(height: 10),
-            TextField(
-              controller: _calibrationValueController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: S.of(context).calibrationValueHint,
-                suffixText: S.of(context).unit,
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 15),
+            Text(S.of(context).doCalibration),          
           ],
         ),
         actions: [
@@ -101,7 +90,10 @@ class _CalibrationWidgetState extends State<CalibrationWidget> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF2E7CFF),
             ),
-            child: Text(S.of(context).yes),
+            child: Text(
+              S.of(context).yes,
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),

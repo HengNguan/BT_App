@@ -101,6 +101,7 @@
   "calibration": "校准",
   "calibrationHistory": "校准历史",
   "enterCalibrationValue": "使用此值校准设备：",
+  "doCalibration": "是否校准设备?",
   "calibrationValueHint": "输入重量值",
   "useCurrentValue": "使用当前值",
   "save": "保存",

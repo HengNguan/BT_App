@@ -110,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No device bound to your account"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
         "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
+        "doCalibration": MessageLookupByLibrary.simpleMessage(
+            "Do you want to calibrate your device?"),
         "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
         "enterCalibrationValue": MessageLookupByLibrary.simpleMessage(
             "Use this value to calibrate the device:"),

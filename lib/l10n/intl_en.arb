@@ -101,6 +101,7 @@
   "calibration": "Calibration",
   "calibrationHistory": "Calibration History",
   "enterCalibrationValue": "Use this value to calibrate the device:",
+  "doCalibration": "Do you want to calibrate your device?",
   "calibrationValueHint": "Enter weight value",
   "useCurrentValue": "Use Current Value",
   "save": "Save",
