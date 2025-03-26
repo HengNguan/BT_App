@@ -37,9 +37,7 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    compileOptions {
-        coreLibraryDesugaringEnabled true // Enable core library desugaring
-    }
+
 
     buildTypes {
         release {
@@ -51,8 +49,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.tools:desugar_jdk_libs:2.0.1' // Add this line
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3' 
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
     // other dependencies...
 }
 

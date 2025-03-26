@@ -1,0 +1,2 @@
+D:/StudioProjects/BT_App/android/app/.cxx/Debug/25r2r6d5/x86/CMakeFiles/edit_cache.dir
+D:/StudioProjects/BT_App/android/app/.cxx/Debug/25r2r6d5/x86/CMakeFiles/rebuild_cache.dir
