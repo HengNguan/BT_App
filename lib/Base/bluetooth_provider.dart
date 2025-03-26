@@ -148,7 +148,7 @@ class BluetoothProvider extends ChangeNotifier {
 
       _parsedDataPackets.add(parsedData);
 
-      _reminderService.startReminder();
+      // _reminderService.startReminder(); // Remove as client request 
 
       notifyListeners(); // Notify listeners about the new parsed data
     }
