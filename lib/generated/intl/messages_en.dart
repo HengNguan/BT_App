@@ -20,10 +20,36 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(countdown) => "Next reminder in ${countdown} hours";
+  static String m0(error) => "Failed to get SharedPreferences: ${error}";
+
+  static String m1(maxRetries) =>
+      "Unable to load language settings after ${maxRetries} attempts, using default language";
+
+  static String m2(attempt, error) =>
+      "Language setting load attempt ${attempt} failed: ${error}";
+
+  static String m3(languageCode) =>
+      "Successfully loaded language setting: ${languageCode}";
+
+  static String m4(countdown) => "Next reminder in ${countdown} hours";
+
+  static String m5(error) => "Failed to save language setting: ${error}";
+
+  static String m6(languageCode) => "Language setting saved: ${languageCode}";
+
+  static String m7(deviceName) => "Welcome to ${deviceName}";
+
+  static String m8(displayName) => "Welcome, ${displayName}!";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "availableDevices": MessageLookupByLibrary.simpleMessage("Available"),
+        "battery": MessageLookupByLibrary.simpleMessage("Battery"),
+        "bindDevice": MessageLookupByLibrary.simpleMessage("Bind Device"),
+        "bindDeviceFailed": MessageLookupByLibrary.simpleMessage(
+            "Failed to bind device to your account"),
+        "bindDeviceSuccess": MessageLookupByLibrary.simpleMessage(
+            "Device successfully bound to your account"),
         "bluetoothIsOff": MessageLookupByLibrary.simpleMessage(
             "Bluetooth is OFF or unavailable"),
         "bluetoothIsOn":
@@ -32,26 +58,107 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bluetooth Scanner"),
         "bluetooth_home_page": MessageLookupByLibrary.simpleMessage(
             "==================== Bluetooth Home page ==================== "),
+        "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "calendar_page": MessageLookupByLibrary.simpleMessage(
             "==================== Calendar page ==================== "),
+        "calibrateAfterDataReceived": MessageLookupByLibrary.simpleMessage(
+            "After receiving data, perform tare calibration"),
+        "calibrateLater":
+            MessageLookupByLibrary.simpleMessage("Calibrate Later"),
+        "calibrateNow": MessageLookupByLibrary.simpleMessage("Calibrate Now"),
+        "calibration": MessageLookupByLibrary.simpleMessage("Calibration"),
+        "calibrationDeleted":
+            MessageLookupByLibrary.simpleMessage("Calibration deleted"),
+        "calibrationHistory":
+            MessageLookupByLibrary.simpleMessage("Calibration History"),
+        "calibrationImportanceNote": MessageLookupByLibrary.simpleMessage(
+            "Note: Tare calibration is an important step to ensure weight data accuracy."),
+        "calibrationSaved": MessageLookupByLibrary.simpleMessage(
+            "Calibration saved successfully"),
+        "calibrationTip": MessageLookupByLibrary.simpleMessage(
+            "Tip: After calibration, the system will automatically subtract this calibration value from the measurement to get an accurate net weight."),
+        "calibrationValueHint":
+            MessageLookupByLibrary.simpleMessage("Enter weight value"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Okay"),
+        "confirmDelete": MessageLookupByLibrary.simpleMessage("Confirm Delete"),
+        "confirmDeleteCalibration": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this calibration record?"),
+        "confirmDeleteCalibrationData": MessageLookupByLibrary.simpleMessage(
+            "Do you also want to delete the calibration data for this device?"),
+        "confirmUnbindDevice": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to unbind this device?"),
+        "connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "connectedDevice":
+            MessageLookupByLibrary.simpleMessage("Connected Device"),
         "connecting": MessageLookupByLibrary.simpleMessage("Connecting..."),
         "dataPacketReceived":
             MessageLookupByLibrary.simpleMessage("Data Packets Received:"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "default_page": MessageLookupByLibrary.simpleMessage(
             "==================== Default page ==================== "),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deviceAlreadyBound": MessageLookupByLibrary.simpleMessage(
+            "This device is already bound to another user"),
+        "deviceBound": MessageLookupByLibrary.simpleMessage(
+            "Device bound to your account"),
+        "deviceGuide": MessageLookupByLibrary.simpleMessage("Device Guide"),
+        "deviceId": MessageLookupByLibrary.simpleMessage("ID"),
+        "deviceInfo": MessageLookupByLibrary.simpleMessage("Device Info"),
+        "deviceNotBound": MessageLookupByLibrary.simpleMessage(
+            "No device bound to your account"),
+        "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
         "disconnected": MessageLookupByLibrary.simpleMessage("Disconnected"),
+        "doCalibration": MessageLookupByLibrary.simpleMessage(
+            "Do you want to calibrate your device?"),
         "drinkLog": MessageLookupByLibrary.simpleMessage("Drink Log"),
+        "enterCalibrationValue": MessageLookupByLibrary.simpleMessage(
+            "Use this value to calibrate the device:"),
+        "firstTimeConnectionInstructions": MessageLookupByLibrary.simpleMessage(
+            "This is your first time connecting to this device. Please follow these steps:"),
+        "getPrefsError": m0,
+        "getPrefsTimeout": MessageLookupByLibrary.simpleMessage(
+            "SharedPreferences initialization timeout"),
+        "guide_dialog": MessageLookupByLibrary.simpleMessage(
+            "==================== Guide Dialog ==================== "),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeTabContent":
             MessageLookupByLibrary.simpleMessage("Home Tab Content"),
         "home_page": MessageLookupByLibrary.simpleMessage(
             "==================== Home page ==================== "),
-        "nextReminder": m0,
+        "language_provider": MessageLookupByLibrary.simpleMessage(
+            "==================== Language Provider ==================== "),
+        "loadLanguageMaxRetries": m1,
+        "loadLanguageRetryFailed": m2,
+        "loadLanguageSuccess": m3,
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginButton": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginFailed": MessageLookupByLibrary.simpleMessage(
+            "Login failed. Please check your username and password."),
+        "login_page": MessageLookupByLibrary.simpleMessage(
+            "==================== Login page ==================== "),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "multiDeviceBindingSubtitle": MessageLookupByLibrary.simpleMessage(
+            "When enabled, one account can bind multiple devices"),
+        "multiDeviceBindingTitle": MessageLookupByLibrary.simpleMessage(
+            "Allow Multiple Device Binding"),
+        "multiDeviceCalibrationSubtitle": MessageLookupByLibrary.simpleMessage(
+            "When enabled, one account can calibrate multiple devices"),
+        "multiDeviceCalibrationTitle": MessageLookupByLibrary.simpleMessage(
+            "Allow Multiple Device Calibration"),
+        "nextReminder": m4,
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noCalibrationHistory": MessageLookupByLibrary.simpleMessage(
+            "No calibration history found"),
         "noDataAvailable":
             MessageLookupByLibrary.simpleMessage("No data available"),
+        "notLoggedIn": MessageLookupByLibrary.simpleMessage("Not logged in"),
         "notSupportThisDevice": MessageLookupByLibrary.simpleMessage(
             "Bluetooth not supported by this device"),
+        "on": MessageLookupByLibrary.simpleMessage("On"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
-        "parsedData": MessageLookupByLibrary.simpleMessage("Parsed Data"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "percentGoal":
             MessageLookupByLibrary.simpleMessage("% Of Goal Achieve"),
         "permissionDenied": MessageLookupByLibrary.simpleMessage(
@@ -60,20 +167,49 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Permissions Needed"),
         "permission_denied_page": MessageLookupByLibrary.simpleMessage(
             "==================== Permission Denied page ==================== "),
+        "power": MessageLookupByLibrary.simpleMessage("Power"),
+        "profile": MessageLookupByLibrary.simpleMessage("Me"),
         "progressGoal": MessageLookupByLibrary.simpleMessage("Progress / Goal"),
-        "reminder_content": MessageLookupByLibrary.simpleMessage(
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveLanguageError": m5,
+        "saveLanguageSuccess": m6,
+        "scanForDevices":
+            MessageLookupByLibrary.simpleMessage("Scan for Devices"),
+        "scanning": MessageLookupByLibrary.simpleMessage("Scanning..."),
+        "serial": MessageLookupByLibrary.simpleMessage("Serial"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "settingsUpdated": MessageLookupByLibrary.simpleMessage(
+            "Settings updated successfully"),
+        "stayHydrated": MessageLookupByLibrary.simpleMessage(
             "Stay hydrated by drinking water!"),
-        "reminder_service": MessageLookupByLibrary.simpleMessage(
-            "==================== Reminder Service ==================== "),
-        "reminder_title":
-            MessageLookupByLibrary.simpleMessage("Time to drink water"),
         "successfulConnect":
-            MessageLookupByLibrary.simpleMessage("Successful Connect"),
+            MessageLookupByLibrary.simpleMessage("Successfully Connected"),
+        "timeToDrinkWater":
+            MessageLookupByLibrary.simpleMessage("Time to drink water • now"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "todayProgress":
             MessageLookupByLibrary.simpleMessage("Today\'s Progress"),
         "turnOnBluetooth":
             MessageLookupByLibrary.simpleMessage("Please turn on Bluetooth"),
-        "viewAll": MessageLookupByLibrary.simpleMessage("View All")
+        "type": MessageLookupByLibrary.simpleMessage("Type"),
+        "unbindDevice": MessageLookupByLibrary.simpleMessage("Unbind Device"),
+        "unbindDeviceFailed": MessageLookupByLibrary.simpleMessage(
+            "Failed to unbind device from your account"),
+        "unbindDeviceSuccess": MessageLookupByLibrary.simpleMessage(
+            "Device successfully unbound from your account"),
+        "unit": MessageLookupByLibrary.simpleMessage("ml"),
+        "unknownDevice": MessageLookupByLibrary.simpleMessage("Unknown Device"),
+        "useCurrentValue":
+            MessageLookupByLibrary.simpleMessage("Use Current Value"),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "value": MessageLookupByLibrary.simpleMessage("Value"),
+        "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
+        "waitForFirstDataPacket": MessageLookupByLibrary.simpleMessage(
+            "Wait for the device to send the first data packet"),
+        "weightDataMoreAccurate": MessageLookupByLibrary.simpleMessage(
+            "After calibration, weight data will be more accurate"),
+        "welcomeToDevice": m7,
+        "welcomeUser": m8,
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

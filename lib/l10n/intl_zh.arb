@@ -1,6 +1,73 @@
 {
   "@@locale": "zh",
 
+  "language_provider": "==================== 语言提供者 ==================== ",
+  "loadLanguageSuccess": "成功加载语言设置：{languageCode}",
+  "@loadLanguageSuccess": {
+    "description": "显示语言设置成功加载时的消息",
+    "placeholders": {
+      "languageCode": {
+        "type": "String",
+        "example": "zh"
+      }
+    }
+  },
+  "loadLanguageRetryFailed": "语言设置加载尝试 {attempt} 失败：{error}",
+  "@loadLanguageRetryFailed": {
+    "description": "显示语言设置加载尝试失败时的消息",
+    "placeholders": {
+      "attempt": {
+        "type": "int",
+        "example": "1"
+      },
+      "error": {
+        "type": "String",
+        "example": "超时"
+      }
+    }
+  },
+  "loadLanguageMaxRetries": "在 {maxRetries} 次尝试后无法加载语言设置，使用默认语言",
+  "@loadLanguageMaxRetries": {
+    "description": "显示达到最大重试次数时的消息",
+    "placeholders": {
+      "maxRetries": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "getPrefsTimeout": "SharedPreferences 初始化超时",
+  "getPrefsError": "获取 SharedPreferences 失败：{error}",
+  "@getPrefsError": {
+    "description": "显示 SharedPreferences 访问失败时的消息",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "错误信息"
+      }
+    }
+  },
+  "saveLanguageSuccess": "语言设置已保存：{languageCode}",
+  "@saveLanguageSuccess": {
+    "description": "显示语言设置成功保存时的消息",
+    "placeholders": {
+      "languageCode": {
+        "type": "String",
+        "example": "zh"
+      }
+    }
+  },
+  "saveLanguageError": "保存语言设置失败：{error}",
+  "@saveLanguageError": {
+    "description": "显示保存语言设置失败时的消息",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "错误信息"
+      }
+    }
+  },
+
   "permission_denied_page": "==================== 权限被拒页面 ==================== ",
   "permissionNeeded": "所需权限",
   "permissionDenied": "哎呀！似乎缺少一些必要的权限。请在设置中启用它们以继续使用该应用。",
@@ -31,7 +98,65 @@
   "disconnected": "已断开连接",
   "bluetoothScanner": "蓝牙扫描器",
   "dataPacketReceived": "已接收到数据包：",
-  "parsedData": "解析数据",
+  "calibration": "校准",
+  "calibrationHistory": "校准历史",
+  "enterCalibrationValue": "使用此值校准设备：",
+  "doCalibration": "是否校准设备?",
+  "calibrationValueHint": "输入重量值",
+  "useCurrentValue": "使用当前值",
+  "save": "保存",
+  "cancel": "取消",
+  "close": "关闭",
+  "calibrationSaved": "校准已成功保存",
+  "calibrationDeleted": "校准已删除",
+  "noCalibrationHistory": "未找到校准历史",
+  "value": "值",
+  "date": "日期",
+  "scanning": "扫描中...",
+  "scanForDevices": "扫描设备",
+  "unknownDevice": "未知设备",
+  "deviceId": "设备ID",
+  "connect": "连接",
+  "disconnect": "断开连接",
+  "battery": "电量",
+  "type": "类型",
+  "serial": "序列号",
+  "power": "电源",
+  "on": "开启",
+  "unit": "毫升",
+  "timeToDrinkWater": "该喝水了",
+  "stayHydrated": "保持水分补充！",
+  "availableDevices": "可用设备",
+  "connectedDevice": "已连接设备",
+  "deviceInfo": "设备信息",
+  "confirmDelete": "确认删除",
+  "confirmDeleteCalibration": "您确定要删除此校准记录吗？",
+  "delete": "删除",
+  "yes": "确定",
+  "no": "取消",
+
+
+  "guide_dialog": "==================== 引导对话框 ==================== ",
+  "deviceGuide": "设备使用指南",
+  "welcomeToDevice": "欢迎使用 {deviceName}",
+  "@welcomeToDevice": {
+    "description": "带有设备名称的欢迎消息",
+    "placeholders": {
+      "deviceName": {
+        "type": "String",
+        "example": "我的设备"
+      }
+    }
+  },
+  "firstTimeConnectionInstructions": "这是您首次连接此设备，请按照以下步骤进行操作：",
+  "waitForFirstDataPacket": "请等待设备发送第一个数据包",
+  "calibrateAfterDataReceived": "收到数据后，请进行去皮校准",
+  "weightDataMoreAccurate": "校准后，重量数据将更加准确",
+  "calibrationImportanceNote": "注意：去皮校准是确保重量数据准确性的重要步骤。",
+  "calibrateLater": "稍后校准",
+  "calibrateNow": "立即校准",
+  "confirm": "确认",
+  "calibrationTip": "提示：校准后，系统将自动从测量值中减去此校准值，得到准确的净重。",
 
   "calendar_page": "==================== 日历页面 ==================== ",
   "overview": "概览",
@@ -40,5 +165,45 @@
   "drinkLog": "饮水记录",
   "viewAll": "查看全部",
   "today": "今天",
-  "noDataAvailable": "没有更多的数据"
+  "noDataAvailable": "没有更多的数据",
+
+  "login_page": "==================== 登录页面 ==================== ",
+  "login": "登录",
+  "username": "用户名",
+  "password": "密码",
+  "loginButton": "登录",
+  "loginFailed": "登录失败。请检查您的用户名和密码。",
+  "welcomeUser": "欢迎，{displayName}！",
+  "@welcomeUser": {
+    "description": "带有用户显示名称的欢迎消息",
+    "placeholders": {
+      "displayName": {
+        "type": "String",
+        "example": "用户1"
+      }
+    }
+  },
+  "logout": "退出登录",
+  "deviceBound": "设备已绑定到您的账户",
+  "deviceNotBound": "您的账户未绑定任何设备",
+  "bindDevice": "绑定设备",
+  "unbindDevice": "解绑设备",
+  "deviceAlreadyBound": "此设备已被其他用户绑定",
+  "bindDeviceSuccess": "设备已成功绑定到您的账户",
+  "bindDeviceFailed": "绑定设备到您的账户失败",
+  "unbindDeviceSuccess": "设备已成功从您的账户解绑",
+  "unbindDeviceFailed": "从您的账户解绑设备失败",
+  "confirmUnbindDevice": "您确定要解绑此设备吗？",
+  "confirmDeleteCalibrationData": "您是否同时要删除此设备的校准数据？",
+  "multiDeviceBindingTitle": "允许多设备绑定",
+  "multiDeviceBindingSubtitle": "开启后一个账号可以绑定多个设备",
+  "multiDeviceCalibrationTitle": "允许多设备校准",
+  "multiDeviceCalibrationSubtitle": "开启后一个账号可以校准多个设备",
+  "settingsUpdated": "设置已成功更新",
+  "settings": "设置",
+  "notLoggedIn": "未登录",
+
+  "home": "主页",
+  "calendar": "历史",
+  "profile": "我"
 }

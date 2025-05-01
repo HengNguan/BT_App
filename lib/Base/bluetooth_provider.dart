@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../services/calibration_service.dart';
 import '../services/reminder_service.dart';
 
 class BluetoothProvider extends ChangeNotifier {
@@ -10,6 +11,16 @@ class BluetoothProvider extends ChangeNotifier {
   String _connectionStatus = '';
   List<Map<String, dynamic>> _parsedDataPackets = [];
   BluetoothDevice? _connectedDevice;
+  final CalibrationService _calibrationService = CalibrationService();
+
+  // 校准引导对话框显示状态
+  bool _showCalibrationGuide = false;
+  bool get showCalibrationGuide => _showCalibrationGuide;
+
+  void resetCalibrationGuide() {
+    _showCalibrationGuide = false;
+    notifyListeners();
+  }
 
   // Getters
   List<ScanResult> get scanResults => _scanResults;
@@ -72,6 +83,16 @@ class BluetoothProvider extends ChangeNotifier {
       _connectionStatus = 'Connected to ${device.remoteId}';
       notifyListeners();
 
+      // 连接成功后检查校准状态
+      if (_connectedDevice != null) {
+        _calibrationService.isDeviceCalibrated(_connectedDevice!.remoteId.toString()).then((isCalibrated) {
+          if (!isCalibrated) {
+            _showCalibrationGuide = true;
+            notifyListeners();
+          }
+        });
+      }
+
       _listenForDataPackets(device);
     } catch (e) {
       _connectionStatus = 'Connection failed: $e';
@@ -94,8 +115,19 @@ class BluetoothProvider extends ChangeNotifier {
     }
   }
 
-  void _parseDataPacket(List<int> dataPacket) {
+  void _parseDataPacket(List<int> dataPacket) async {
     if (dataPacket.length >= 16) { // Ensure enough data is present
+      // DeviceID
+      String deviceId = _connectedDevice?.remoteId.toString() ?? '';
+      // CalibrationValue
+      double? calibrationValue = await _calibrationService.getCalibrationValue(deviceId);
+
+      // print('ID: $deviceId, Value : $calibrationValue');
+
+      // Calculate weight
+      double rawWeight = ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0;
+      double adjustedWeight = calibrationValue != null ? rawWeight - calibrationValue : rawWeight;
+      
       Map<String, dynamic> parsedData = {
         'Length': dataPacket[0],
         'Product Type': dataPacket[1],
@@ -105,7 +137,7 @@ class BluetoothProvider extends ChangeNotifier {
             .join(),
         'Power Status': dataPacket[6] == 1 ? 'On' : 'Off',
         'Temperature': ((dataPacket[7] << 8) | dataPacket[8]) / 10.0,
-        'Weight': ((dataPacket[9] << 16) | (dataPacket[10] << 8) | dataPacket[11]) / 1.0,
+        'Weight': adjustedWeight,
         'Battery': dataPacket[12],
         'Reserved': dataPacket
             .sublist(13, 15)
@@ -116,13 +148,13 @@ class BluetoothProvider extends ChangeNotifier {
 
       _parsedDataPackets.add(parsedData);
 
-      _reminderService.startReminder();
+      // _reminderService.startReminder(); // Remove as client request 
 
       notifyListeners(); // Notify listeners about the new parsed data
     }
   }
 
-  void disconnectDevice() async {
+  Future<void> disconnectDevice() async {
     if (_connectedDevice != null) {
       await _connectedDevice!.disconnect();
       _connectedDevice = null;
